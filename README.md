@@ -54,7 +54,3 @@ Las contribuciones a este proyecto son bienvenidas. Si deseas colaborar, puedes 
 - [Heisuzul](https://github.com/heisuzul)
 - [Daniel8900259](https://github.com/Daniel8900259)
 - [leandroace](https://github.com/leandroace)
-
-## Licencia
-
-Este proyecto se distribuye bajo la licencia [Nombre de la licencia](URL de la licencia).
