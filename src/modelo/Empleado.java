@@ -21,10 +21,10 @@ public class Empleado {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getFicha_empleado() {
+	public int getFichaEmpleado() {
 		return ficha_empleado;
 	}
-	public void setFicha_empleado(int ficha_empleado) {
+	public void setFichaEmpleado(int ficha_empleado) {
 		this.ficha_empleado = ficha_empleado;
 	}
 	public String getNombre() {
@@ -57,40 +57,40 @@ public class Empleado {
 	public void setFpp(int fpp) {
 		this.fpp = fpp;
 	}
-	public String getFecha_nacimiento() {
+	public String getFechaNacimiento() {
 		return fecha_nacimiento;
 	}
-	public void setFecha_nacimiento(String fecha_nacimiento) {
+	public void setFechaNacimiento(String fecha_nacimiento) {
 		this.fecha_nacimiento = fecha_nacimiento;
 	}
-	public String getFecha_ingreso() {
+	public String getFechaIngreso() {
 		return fecha_ingreso;
 	}
-	public void setFecha_ingreso(String fecha_ingreso) {
+	public void setFechaIngreso(String fecha_ingreso) {
 		this.fecha_ingreso = fecha_ingreso;
 	}
-	public String getFecha_retiro() {
+	public String getFechaRetiro() {
 		return fecha_retiro;
 	}
-	public void setFecha_retiro(String fecha_retiro) {
+	public void setFechaRetiro(String fecha_retiro) {
 		this.fecha_retiro = fecha_retiro;
 	}
-	public boolean isTipo_trabajador() {
+	public boolean getTipoTrabajador() {
 		return tipo_trabajador;
 	}
-	public void setTipo_trabajador(boolean tipo_trabajador) {
+	public void setTipoTrabajador(boolean tipo_trabajador) {
 		this.tipo_trabajador = tipo_trabajador;
 	}
-	public boolean isTipo_salario() {
+	public boolean getTipoSalario() {
 		return tipo_salario;
 	}
-	public void setTipo_salario(boolean tipo_salario) {
+	public void setTipoSalario(boolean tipo_salario) {
 		this.tipo_salario = tipo_salario;
 	}
-	public long getCuenta_bancaria() {
+	public long getCuentaBancaria() {
 		return cuenta_bancaria;
 	}
-	public void setCuenta_bancaria(long cuenta_bancaria) {
+	public void setCuentaBancaria(long cuenta_bancaria) {
 		this.cuenta_bancaria = cuenta_bancaria;
 	}
 }
