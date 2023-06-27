@@ -16,29 +16,16 @@ La aplicación permite gestionar la información de los empleados de una empresa
   - Actualizar datos de un empleado.
   - Eliminar un empleado.
 
+## Mockups
+
+Estos son los mockups que usamos para realizar la interfaz de usuario.
+
 ## Capturas de pantalla
 
 Aquí se muestran algunas capturas de pantalla de la aplicación:
 
 ### Pantalla de inicio
-
-![Pantalla de inicio](/images/inicio.png)
-
-### Pantalla de creación de empleado
-
-![Pantalla de creación de empleado](/images/crear_empleado.png)
-
-### Pantalla de consulta de empleado
-
-![Pantalla de consulta de empleado](/images/consulta_empleado.png)
-
-### Pantalla de actualización de empleado
-
-![Pantalla de actualización de empleado](/images/actualizar_empleado.png)
-
-### Pantalla de eliminación de empleado
-
-![Pantalla de eliminación de empleado](/images/eliminar_empleado.png)
+![Pantalla de inicio](/images/screenshots/screenshot_interfaz.png)
 
 ## Requisitos
 
