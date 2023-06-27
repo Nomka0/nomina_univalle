@@ -70,11 +70,11 @@ public class EmpleadoVista extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
         
-        btnEditarEmpleado = new JButton("Editar empleado");
+        btnEditarEmpleado = new JButton("Editar eps");
         btnEditarEmpleado.setBounds(715, 197, 151, 44);
         contentPane.add(btnEditarEmpleado);
         
-        btnEliminarEmpleado = new JButton("Eliminar empleado");
+        btnEliminarEmpleado = new JButton("Eliminar eps");
         btnEliminarEmpleado.setBounds(715, 275, 151, 44);
         contentPane.add(btnEliminarEmpleado);
         
@@ -136,7 +136,7 @@ public class EmpleadoVista extends JFrame {
         txtTipoTrabajador.setColumns(10);
         
 
-        // JTable para mostrar la lista de empleados
+        // JTable para mostrar la lista de epss
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Nombres");
@@ -155,7 +155,7 @@ public class EmpleadoVista extends JFrame {
         btnGuardarEmpleado.setBounds(726, 29, 130, 55);
         contentPane.add(btnGuardarEmpleado);
         
-        btnListarEmpleados = new JButton("Listar empleados");
+        btnListarEmpleados = new JButton("Listar epss");
         btnListarEmpleados.setBounds(715, 348, 151, 44);
         contentPane.add(btnListarEmpleados);
 
@@ -245,8 +245,8 @@ public class EmpleadoVista extends JFrame {
         comboBoxEstamento.setSelectedIndex(index);
     }
 
-    public Object[] getDatosEmpleado(Empleado empleado) {
-        Object[] elemento = { empleado.getId(), empleado.getNombre(), empleado.getApellido(), empleado.getFechaIngreso(), empleado.getFechaRetiro(), empleado.getTipoTrabajador()};
+    public Object[] getDatosEmpleado(Empleado eps) {
+        Object[] elemento = { eps.getId(), eps.getNombre(), eps.getApellido(), eps.getFechaIngreso(), eps.getFechaRetiro(), eps.getTipoTrabajador()};
         return elemento;
     }
 
@@ -271,7 +271,7 @@ public class EmpleadoVista extends JFrame {
         btnEliminarEmpleado.setEnabled(toggle);
     }
 
-    public void addDatosTablaEmpleados(Empleado empleado) {
+    public void addDatosTablaEmpleados(Empleado eps) {
         // Crear una nueva matriz temporal con una fila adicional
         Object[][] newData = new Object[dataEmpleados.length + 1][];
 
@@ -281,22 +281,22 @@ public class EmpleadoVista extends JFrame {
         }
 
         // Añadir el nuevo elemento a newData
-        newData[newData.length - 1] = getDatosEmpleado(empleado);
+        newData[newData.length - 1] = getDatosEmpleado(eps);
 
         // Asignar newData a dataEmpleados
         dataEmpleados = newData;
 
-        // Actualizar el modelo de la tabla de empleados
+        // Actualizar el modelo de la tabla de epss
         SwingUtilities.invokeLater(() -> {
             tablaEmpleados.setModel(getModeloTablaEmpleados());
         });
     }
 
-    public void editarElementoTablaEmpleados(int index, Empleado empleado) {
-        Object[] nuevosDatos = getDatosEmpleado(empleado);
+    public void editarElementoTablaEmpleados(int index, Empleado eps) {
+        Object[] nuevosDatos = getDatosEmpleado(eps);
         dataEmpleados[index] = nuevosDatos;
 
-        // Actualizar el modelo de la tabla de empleados
+        // Actualizar el modelo de la tabla de epss
         SwingUtilities.invokeLater(() -> {
             tablaEmpleados.setModel(getModeloTablaEmpleados());
         });
@@ -315,7 +315,7 @@ public class EmpleadoVista extends JFrame {
 
         dataEmpleados = nuevaMatriz;
 
-        // Actualizar el modelo de la tabla de empleados
+        // Actualizar el modelo de la tabla de epss
         SwingUtilities.invokeLater(() -> {
             tablaEmpleados.setModel(getModeloTablaEmpleados());
         });
@@ -367,7 +367,7 @@ public class EmpleadoVista extends JFrame {
         btnOpcionesAdicionales.addActionListener(listener);
     }
 
-    // Añade el listener para la tabla de empleados
+    // Añade el listener para la tabla de epss
     public void addTablaEmpleadosMouseListener(MouseAdapter listener) {
         tablaEmpleados.addMouseListener(listener);
     }

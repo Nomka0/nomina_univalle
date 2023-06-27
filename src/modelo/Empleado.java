@@ -2,7 +2,7 @@ package modelo;
 
 public class Empleado {
 	int id;
-	int ficha_empleado;	
+	int ficha_eps;	
 	String nombre;
 	String apellido;
 	String direccion;
@@ -15,11 +15,11 @@ public class Empleado {
 	boolean tipo_salario; //true: acumulado; false: fijo
 	long cuenta_bancaria;
 	
-	public Empleado(int id, int ficha_empleado, String nombre, String apellido, String direccion, int eps, int fpp,
+	public Empleado(int id, int ficha_eps, String nombre, String apellido, String direccion, int eps, int fpp,
 			String fecha_nacimiento, String fecha_ingreso, String fecha_retiro, boolean tipo_trabajador,
 			boolean tipo_salario, long cuenta_bancaria) {
 		this.id = id;
-		this.ficha_empleado = ficha_empleado;
+		this.ficha_eps = ficha_eps;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.direccion = direccion;
@@ -42,10 +42,10 @@ public class Empleado {
 		this.id = id;
 	}
 	public int getFichaEmpleado() {
-		return ficha_empleado;
+		return ficha_eps;
 	}
-	public void setFichaEmpleado(int ficha_empleado) {
-		this.ficha_empleado = ficha_empleado;
+	public void setFichaEmpleado(int ficha_eps) {
+		this.ficha_eps = ficha_eps;
 	}
 	public String getNombre() {
 		return nombre;

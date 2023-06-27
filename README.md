@@ -1,6 +1,6 @@
 # Proyecto de Gestión de Empleados
 
-Este proyecto es una aplicación de gestión de empleados desarrollada en Java.
+Este proyecto es una aplicación de gestión de epss desarrollada en Java.
 
 ## Descripción
 La Cooperativa de corteros de caña Serviagricola "Los Suareños" S.A.S ha contactado la EISC de Univalle para que un grupo de desarrollo de software diseñe y construya una aplicación que les permita gestionar el proceso de liquidación de nómina del corte de caña.
@@ -8,7 +8,7 @@ La Cooperativa de corteros de caña Serviagricola "Los Suareños" S.A.S ha conta
 La aplicación deberá permitir gestionar (CRUD) las siguientes entidades involucradas en el proceso:
 
   - Empleado
-  - EPS
+  - FondoPension
   - Fondo de Pensión
   - ARL
   - Caja de Compensación
@@ -16,17 +16,17 @@ La aplicación deberá permitir gestionar (CRUD) las siguientes entidades involu
   - Conceptos de Devengo
   - Conceptos de Deducciones
 
-La aplicación permite gestionar la información de los empleados de una empresa. Permite crear nuevos empleados, consultar información de empleados existentes, actualizar datos de empleados y eliminar empleados.
+La aplicación permite gestionar la información de los epss de una empresa. Permite crear nuevos epss, consultar información de epss existentes, actualizar datos de epss y eliminar epss.
 
 ## Características
 
 - Interfaz gráfica de usuario para una fácil interacción.
-- Base de datos para almacenar la información de los empleados.
+- Base de datos para almacenar la información de los epss.
 - Funcionalidades:
-  - Crear un nuevo empleado.
-  - Consultar información de un empleado y sus datos de nomina y de la empresa.
-  - Actualizar datos de un empleado.
-  - Eliminar un empleado.
+  - Crear un nuevo eps.
+  - Consultar información de un eps y sus datos de nomina y de la empresa.
+  - Actualizar datos de un eps.
+  - Eliminar un eps.
 
 ## Mockups
 
