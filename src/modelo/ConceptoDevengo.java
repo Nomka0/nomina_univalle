@@ -17,7 +17,9 @@ public class ConceptoDevengo extends Entidad{
 	public boolean getHaceBase() {
 		return hace_base;
 	}
-
+	
+	public 
+	
 	public void setHaceBase(boolean hace_base) {
 		this.hace_base = hace_base;
 	}
