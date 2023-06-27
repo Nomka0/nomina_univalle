@@ -2,9 +2,11 @@ package dao;
 
 import java.util.List;
 
-public interface GenericDAO<T> {
+public interface DAO<T> {
     
 	void crear(T entidad);
+	
+	void crearVarios(List<T> entidad);
     
     T obtener(int index);
     

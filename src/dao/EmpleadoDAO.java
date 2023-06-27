@@ -1,50 +1,48 @@
 package dao;
-
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Empleado;
 
-public class EmpleadoDAOImpl implements EmpleadoDAO {
+public class EmpleadoDAO implements DAO<Empleado> {
 
 	private List<Empleado> empleados;
 	
-	public EmpleadoDAOImpl() {
+	public EmpleadoDAO() {
 		this.empleados = new ArrayList<>();
 	}
 	
-	public void crearEmpleados(List<Empleado> empleados_nuevos) {
+	@Override
+	public void crear(Empleado empleado) {
 		// TODO Auto-generated method stub
-		empleados = empleados_nuevos;
+		empleados.add(empleado);
 	}
 	
 	@Override
-	public void crearEmpleado(Empleado paciente) {
+	public void crearVarios(List<Empleado> empleados_nuevos) {
 		// TODO Auto-generated method stub
-		empleados.add(paciente);
+		empleados = empleados_nuevos;
 	}
 
 	@Override
-	public Empleado obtenerEmpleado(int index) {
+	public Empleado obtener(int index) {
 		// TODO Auto-generated method stub
 		return empleados.get(index);
 	}
 
 	@Override
-	public List<Empleado> obtenerTodosLosEmpleados() {
+	public List<Empleado> obtenerTodos() {
 		// TODO Auto-generated method stub
 		return empleados;
 	}
 
 	@Override
-	public void actualizarEmpleado(int index, Empleado pacienteAct) {
+	public void actualizar(int index, Empleado empleadoAct) {
 		// TODO Auto-generated method stub
-		empleados.set(index, pacienteAct);
+		empleados.set(index, empleadoAct);
 	}
 	
     @Override
-    public void eliminarEmpleado(int index) {
+    public void eliminar(int index) {
         empleados.remove(index);
     }
-	
-
 }
