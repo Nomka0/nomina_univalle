@@ -50,8 +50,10 @@ Las contribuciones a este proyecto son bienvenidas. Si deseas colaborar, puedes 
 
 ## Autores
 
-- [Nombre del autor 1](https://github.com/autor1)
-- [Nombre del autor 2](https://github.com/autor2)
+- [Nomka0](https://github.com/Nomka0)
+- [Heisuzul](https://github.com/heisuzul)
+- [Daniel8900259](https://github.com/Daniel8900259)
+- [leandroace](https://github.com/leandroace)
 
 ## Licencia
 
