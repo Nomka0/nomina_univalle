@@ -86,25 +86,25 @@ public class EmpleadoVista extends JFrame {
         contentPane.add(lblCodigo);
 
         txtCodigo = new JTextField();
-        txtCodigo.setBounds(20, 30, 120, 20);
+        txtCodigo.setBounds(20, 30, 174, 20);
         contentPane.add(txtCodigo);
         txtCodigo.setColumns(10);
 
         lblNombres = new JLabel("Nombres:");
-        lblNombres.setBounds(170, 10, 100, 20);
+        lblNombres.setBounds(223, 10, 100, 20);
         contentPane.add(lblNombres);
 
         txtNombres = new JTextField();
-        txtNombres.setBounds(170, 30, 110, 20);
+        txtNombres.setBounds(223, 30, 174, 20);
         contentPane.add(txtNombres);
         txtNombres.setColumns(10);
 
         lblApellidos = new JLabel("Apellidos:");
-        lblApellidos.setBounds(312, 10, 100, 20);
+        lblApellidos.setBounds(429, 10, 100, 20);
         contentPane.add(lblApellidos);
 
         txtApellidos = new JTextField();
-        txtApellidos.setBounds(312, 30, 130, 20);
+        txtApellidos.setBounds(429, 30, 185, 20);
         contentPane.add(txtApellidos);
         txtApellidos.setColumns(10);
 
@@ -113,25 +113,25 @@ public class EmpleadoVista extends JFrame {
         contentPane.add(lblFechaIngreso);
 
         txtFechaIngreso = new JTextField();
-        txtFechaIngreso.setBounds(19, 82, 120, 20);
+        txtFechaIngreso.setBounds(19, 82, 175, 20);
         contentPane.add(txtFechaIngreso);
         txtFechaIngreso.setColumns(10);
 
         lblFechaRetiro = new JLabel("Fecha de Retiro:");
-        lblFechaRetiro.setBounds(170, 62, 106, 20);
+        lblFechaRetiro.setBounds(223, 62, 106, 20);
         contentPane.add(lblFechaRetiro);
 
         txtFechaRetiro = new JTextField();
-        txtFechaRetiro.setBounds(170, 82, 110, 20);
+        txtFechaRetiro.setBounds(223, 82, 174, 20);
         contentPane.add(txtFechaRetiro);
         txtFechaRetiro.setColumns(10);
 
         JLabel  lblTipoTrabajador= new JLabel("Tipo de trabajador: ");
-        lblTipoTrabajador.setBounds(312, 62, 120, 20);
+        lblTipoTrabajador.setBounds(429, 62, 120, 20);
         contentPane.add(lblTipoTrabajador);
         
         txtTipoTrabajador = new JTextField();
-        txtTipoTrabajador.setBounds(312, 82, 130, 20);
+        txtTipoTrabajador.setBounds(429, 82, 185, 20);
         contentPane.add(txtTipoTrabajador);
         txtTipoTrabajador.setColumns(10);
         
