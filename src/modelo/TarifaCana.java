@@ -14,14 +14,14 @@ public class TarifaCana {
 		tarifas.put(new Pair(4, 'F'), 4);//cruda festiva
 	}
 
-	public int get_tarifa(int cana_tipo, char dia_tipo) {
+	public int getTarifa(int cana_tipo, char dia_tipo) {
 		int tarifa = tarifas.get(new Pair(cana_tipo, dia_tipo));
-		get_tarifa_string(tarifa);
+		getTarifaString(tarifa);
 		return tarifa;
 	}
 
 
-	public void get_tarifa_string(int tarifa) {
+	public void getTarifaString(int tarifa) {
 		switch(tarifa) {
 		case 1:
 			System.out.println("quemada ordinaria");
