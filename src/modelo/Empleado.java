@@ -18,7 +18,6 @@ public class Empleado {
 	public Empleado(int id, int ficha_empleado, String nombre, String apellido, String direccion, int eps, int fpp,
 			String fecha_nacimiento, String fecha_ingreso, String fecha_retiro, boolean tipo_trabajador,
 			boolean tipo_salario, long cuenta_bancaria) {
-		super();
 		this.id = id;
 		this.ficha_empleado = ficha_empleado;
 		this.nombre = nombre;
