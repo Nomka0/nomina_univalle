@@ -15,6 +15,27 @@ public class Empleado {
 	boolean tipo_salario; //true: acumulado; false: fijo
 	long cuenta_bancaria;
 	
+	public Empleado(int id, int ficha_empleado, String nombre, String apellido, String direccion, int eps, int fpp,
+			String fecha_nacimiento, String fecha_ingreso, String fecha_retiro, boolean tipo_trabajador,
+			boolean tipo_salario, long cuenta_bancaria) {
+		super();
+		this.id = id;
+		this.ficha_empleado = ficha_empleado;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.direccion = direccion;
+		this.eps = eps;
+		this.fpp = fpp;
+		this.fecha_nacimiento = fecha_nacimiento;
+		this.fecha_ingreso = fecha_ingreso;
+		this.fecha_retiro = fecha_retiro;
+		this.tipo_trabajador = tipo_trabajador;
+		this.tipo_salario = tipo_salario;
+		this.cuenta_bancaria = cuenta_bancaria;
+	}
+	
+	public Empleado() {}
+	
 	public int getId() {
 		return id;
 	}
