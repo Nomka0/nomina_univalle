@@ -36,9 +36,9 @@ public class EPSDAO implements DAO<EPS> {
 	}
 
 	@Override
-	public void actualizar(int index, EPS epsAct) {
+	public void actualizar(int index, EPS eps_act) {
 		// TODO Auto-generated method stub
-		eps_list.set(index, epsAct);
+		eps_list.set(index, eps_act);
 	}
 	
     @Override

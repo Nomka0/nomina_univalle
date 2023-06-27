@@ -5,44 +5,44 @@ import modelo.FondoPension;
 
 public class FondoPensionDAO implements DAO<FondoPension> {
 
-	private List<FondoPension> eps_list;
+	private List<FondoPension> pensiones;
 	
 	public FondoPensionDAO() {
-		this.eps_list = new ArrayList<>();
+		this.pensiones = new ArrayList<>();
 	}
 	
 	@Override
-	public void crear(FondoPension eps) {
+	public void crear(FondoPension fondo_pension) {
 		// TODO Auto-generated method stub
-		eps_list.add(eps);
+		pensiones.add(fondo_pension);
 	}
 	
 	@Override
-	public void crearVarios(List<FondoPension> eps_list_nuevos) {
+	public void crearVarios(List<FondoPension> pensiones_nuevas) {
 		// TODO Auto-generated method stub
-		eps_list = eps_list_nuevos;
+		pensiones = pensiones_nuevas;
 	}
 
 	@Override
 	public FondoPension obtener(int index) {
 		// TODO Auto-generated method stub
-		return eps_list.get(index);
+		return pensiones.get(index);
 	}
 
 	@Override
 	public List<FondoPension> obtenerTodos() {
 		// TODO Auto-generated method stub
-		return eps_list;
+		return pensiones;
 	}
 
 	@Override
-	public void actualizar(int index, FondoPension epsAct) {
+	public void actualizar(int index, FondoPension pensiones_act) {
 		// TODO Auto-generated method stub
-		eps_list.set(index, epsAct);
+		pensiones.set(index, pensiones_act);
 	}
 	
     @Override
     public void eliminar(int index) {
-        eps_list.remove(index);
+        pensiones.remove(index);
     }
 }

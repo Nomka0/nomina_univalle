@@ -12,9 +12,9 @@ public class EmpleadoDAO implements DAO<Empleado> {
 	}
 	
 	@Override
-	public void crear(Empleado eps) {
+	public void crear(Empleado empleado) {
 		// TODO Auto-generated method stub
-		empleados.add(eps);
+		empleados.add(empleado);
 	}
 	
 	@Override
@@ -36,9 +36,9 @@ public class EmpleadoDAO implements DAO<Empleado> {
 	}
 
 	@Override
-	public void actualizar(int index, Empleado epsAct) {
+	public void actualizar(int index, Empleado empleado_act) {
 		// TODO Auto-generated method stub
-		empleados.set(index, epsAct);
+		empleados.set(index, empleado_act);
 	}
 	
     @Override
