@@ -1,14 +1,16 @@
 package modelo;
 
-public class FondoPension extends Entidad {
+public class FondoPension extends Entidad{
 	int codigo;
-	String nombre_pension;
+	String nombre;
 	
-	public FondoPension(int codigo, String nombre_pension) {
-		super(codigo, nombre_pension);
+	public FondoPension(int codigo, String nombre) {
+		super(codigo, nombre);
 	}
 	
 	public FondoPension() {
 		super();
 	}
+
 }
+
