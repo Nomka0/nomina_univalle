@@ -11,9 +11,9 @@ public class TarifaCana {
 	public TarifaCana() {
 		//inicialización tipos
 		tipos.put(new Pair(1, 'O'), 1); //quemada ordinaria
-		tipos.put(new Pair(2, 'F'), 2); //quemada festiva
-		tipos.put(new Pair(3, 'O'), 3);//cruda ordinaria 
-		tipos.put(new Pair(4, 'F'), 4);//cruda festiva
+		tipos.put(new Pair(1, 'F'), 2); //quemada festiva
+		tipos.put(new Pair(2, 'O'), 3);//cruda ordinaria 
+		tipos.put(new Pair(2, 'F'), 4);//cruda festiva
 
 		//inicialización tarifas
 		tarifas.put(1, 300000);//el dato de clave es el tipo de tarifa, el dato a acceder es el valor en pesos
@@ -21,7 +21,7 @@ public class TarifaCana {
 		tarifas.put(3, 800000);
 		tarifas.put(4, 1000000);
 	}
-
+	
 	public int getTipo(int cana_tipo, char dia_tipo) {
 		int tipo = tipos.get(new Pair(cana_tipo, dia_tipo));
 		getTipoString(tipo);
@@ -55,8 +55,8 @@ public class TarifaCana {
 		int tipo = getTipo(cana_tipo, dia_tipo);
 		int tarifa = tarifas.get(tipo);
 		
-		getTipoString(tipo);
-		System.out.println("el valor de tarifa es " + tipo);
+		//getTipoString(tipo);
+		System.out.println("el valor de la tarifa es " + tarifa);
 		return tarifa;
 	}
 
