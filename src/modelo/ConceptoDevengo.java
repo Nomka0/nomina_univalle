@@ -44,6 +44,7 @@ public class ConceptoDevengo extends Entidad{
 		valor_devengo = pago_semanal; 
 		//como no hace base, entonces no se cambia ese valor, que se inicializó en false en el constructor
 	}
+	
 }
 
 
