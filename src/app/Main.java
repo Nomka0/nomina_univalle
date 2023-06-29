@@ -17,8 +17,10 @@ public class Main {
 		
 		ConceptoDevengo uno_mas = dao_devengos.obtener(0);
 		
+		String nombre_del_devengo = uno_mas.getNombre();
+		
 		System.out.println("Este es el valor (pesos) del devengo creado: " + uno_mas.getValorDevengo());
 		
-		System.out.println("Este es el devengo creado: " + dao_devengos.obtener(0));
+		System.out.println("Este es el devengo creado: " + nombre_del_devengo);
 	}
 }
