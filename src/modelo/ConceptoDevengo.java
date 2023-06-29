@@ -21,8 +21,12 @@ public class ConceptoDevengo extends Entidad{
 	
 	public ConceptoDevengo() {
 		super();
-		valor_devengo = 0;
-		pago_corte_cana = new TarifaCana();
+		//valor_devengo = 0;
+		//pago_corte_cana = new TarifaCana();
+	}
+	
+	public int getValorDevengo( ) {
+		return valor_devengo;
 	}
 	
 	public boolean getHaceBase() {
