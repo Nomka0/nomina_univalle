@@ -10,7 +10,7 @@ public class Main {
 		
 		//testeando...
 		ConceptoDevengoDAO dao_devengos = new ConceptoDevengoDAO();
-		ConceptoDevengo corte_cana = new ConceptoDevengo();
+		ConceptoDevengo corte_cana = new ConceptoDevengo(1234,"PRIMER PAGO SEMANAL","20230629");
 		corte_cana.corteCana(1, 'F');
 		
 		dao_devengos.crear(corte_cana);
