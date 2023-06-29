@@ -22,5 +22,7 @@ public class Main {
 		System.out.println("Este es el valor (pesos) del devengo creado: " + uno_mas.getValorDevengo());
 		
 		System.out.println("Este es el devengo creado: " + nombre_del_devengo);
+		//entonces supongo que lo que podemos hacer es por cada quincena crear dos archivos
+		//aquí estoy en devengos
 	}
 }
