@@ -17,7 +17,7 @@ public class ConceptoDevengoControlador {
 	public ConceptoDevengoControlador() {
 		devengosDAO = new ConceptoDevengoDAO();
 		devengos = devengosDAO.obtenerTodos();
-		ruta_archivo = "corte_cana1.csv";
+		ruta_archivo = "CSVs/corte_cana1.csv";
 		
 	}
 	
