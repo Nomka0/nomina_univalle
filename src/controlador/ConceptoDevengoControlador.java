@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 import dao.ConceptoDevengoDAO;
 import modelo.ConceptoDevengo;
+import modelo.TarifaCana;
+
 import java.util.Arrays;
 
 public class ConceptoDevengoControlador {
@@ -72,11 +74,14 @@ public class ConceptoDevengoControlador {
 	                int ficha = Integer.parseInt(campos[0]);
 	                String fechaCorte = campos[1];
 	                String haciendaSuerte = campos[2];
-	                int toneladaCorte = Integer.parseInt(campos[3]);
+	                float toneladaCorte = Float.parseFloat(campos[3]);
 	                int tipoCana = Integer.parseInt(campos[4]);
 	                char diaCorte = campos[5].charAt(0);
 	                
-	                ConceptoDevengo tarifa_individual= new ConceptoDevengo(ficha, fechaCorte, haciendaSuerte, toneladaCorte, tipoCana, diaCorte);
+	                TarifaCana cana_evaluar = new TarifaCana(tipoCana, diaCorte);
+	                float corte_toneladas =  cana_evaluar.getTarifa() * (toneladaCorte/1000);
+	                
+	                ConceptoDevengo tarifa_individual= new ConceptoDevengo(ficha, fechaCorte, corte_toneladas);
 	                devengosDAO.crear(tarifa_individual);
 				}
 				// Cerrar el scanner después de terminar de leer el archivo

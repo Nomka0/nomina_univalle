@@ -4,11 +4,14 @@ import java.util.Objects;
 
 //clase para las tipos de las cañas, esta info le conscierne a ConceptoDevengo, para calcular los devengos
 public class TarifaCana {
-	HashMap<Pair, Integer> tipos = new HashMap<>(); //tipos de tipo caña, el pair es para
+	 private HashMap<Pair, Integer> tipos = new HashMap<>(); //tipos de tipo caña, el pair es para
 	//señalar si el día es festivo u ordinario y también el tipo decaña, y el integer señala el tipo de tipo
-	HashMap<Integer,Integer> tarifas = new HashMap<>();
+	private HashMap<Integer,Integer> tarifas = new HashMap<>();
+	private int cana_tipo;
+	private char dia_tipo;
+
 	
-	public TarifaCana() {
+	public TarifaCana(int cana_tipo, char dia_tipo) {
 		//inicialización tipos
 		tipos.put(new Pair(1, 'O'), 1); //quemada ordinaria
 		tipos.put(new Pair(1, 'F'), 2); //quemada festiva
@@ -20,9 +23,12 @@ public class TarifaCana {
 		tarifas.put(2, 400000);
 		tarifas.put(3, 800000);
 		tarifas.put(4, 1000000);
+		
+		this.cana_tipo = cana_tipo;
+		this.dia_tipo = dia_tipo;
 	}
 	
-	public int getTipo(int cana_tipo, char dia_tipo) {
+	public int getTipo() {
 		int tipo = tipos.get(new Pair(cana_tipo, dia_tipo));
 		getTipoString(tipo);
 		return tipo;
@@ -51,8 +57,8 @@ public class TarifaCana {
 		
 	}
 	
-	public int getTarifa(int cana_tipo, char dia_tipo) {
-		int tipo = getTipo(cana_tipo, dia_tipo);
+	public int getTarifa() {
+		int tipo = getTipo();
 		int tarifa = tarifas.get(tipo);
 		
 		//getTipoString(tipo);

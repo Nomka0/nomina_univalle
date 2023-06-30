@@ -3,20 +3,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ConceptoDevengo extends Entidad{
-	int codigo;
-	String nombre;
-    Date fecha = new Date();
-    float valor_devengo;
-	boolean hace_base;
-	char tipo_dia;
-	int tipo_cana;
-	
-	TarifaCana pago_corte_cana;
-	
+	private int codigo;
+	private String nombre;
+    private Date fecha = new Date();
+    private float valor_devengo;
+	private boolean hace_base;
 	
 	 
-	public ConceptoDevengo(int codigo, String fecha, String nombre, float corte_kilos, int tipo_cana,char tipo_dia) {
-		super(codigo, nombre);
+	public ConceptoDevengo(int codigo, String fecha, float corte_kilos) {
+		super(codigo, "CORTE DE CAÑA");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		try {
 			this.fecha = sdf.parse(fecha);
@@ -24,12 +19,8 @@ public class ConceptoDevengo extends Entidad{
 		catch (Exception e) {
             System.out.println("Error al inicializar la fecha: " + e.getMessage());
 		}
-        
-		this.tipo_dia = tipo_dia;
-		this.tipo_cana = tipo_cana;
 		hace_base = false;
-		pago_corte_cana = new TarifaCana();
-		valor_devengo = corteCana()*(corte_kilos/1000);
+		valor_devengo = corte_kilos;
 	}
 	
 	public ConceptoDevengo() {
@@ -52,11 +43,12 @@ public class ConceptoDevengo extends Entidad{
 	
 	//cada dao tendra 2 de estos (ya que son reportes semanales y la liquidación de nomina es quincenal)
 	
+	/*
 	public int corteCana() {
 		int pago_semanal = pago_corte_cana.getTarifa(tipo_cana, tipo_dia);
 		return pago_semanal; 
 		//como no hace base, entonces no se cambia ese valor, que se inicializó en false en el constructor
-	}
+	}*/
 	
 }
 
