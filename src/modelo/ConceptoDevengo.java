@@ -4,7 +4,7 @@ public class ConceptoDevengo extends Entidad{
 	int codigo;
 	String nombre;
 	String fecha;
-	int valor_devengo;
+	float valor_devengo;
 	boolean hace_base;
 	char tipo_dia;
 	int tipo_cana;
@@ -13,7 +13,7 @@ public class ConceptoDevengo extends Entidad{
 	
 	
 	 
-	public ConceptoDevengo(int codigo, String fecha, String nombre, int corte_kilos, int tipo_cana,char tipo_dia) {
+	public ConceptoDevengo(int codigo, String fecha, String nombre, float corte_kilos, int tipo_cana,char tipo_dia) {
 		super(codigo, nombre);
 		this.fecha = fecha;
 		this.tipo_dia = tipo_dia;
@@ -29,7 +29,7 @@ public class ConceptoDevengo extends Entidad{
 		//pago_corte_cana = new TarifaCana();
 	}
 	
-	public int getValorDevengo( ) {
+	public float getValorDevengo( ) {
 		return valor_devengo;
 	}
 	

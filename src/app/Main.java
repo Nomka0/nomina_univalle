@@ -27,7 +27,7 @@ public class Main {
 		List<ConceptoDevengo> cortes_cana = controlador.getDevengoDAO();
 		int dia = 1;
 		for (ConceptoDevengo corte_cana : cortes_cana) {
-			System.out.println("valor para el día " + dia + ": " + corte_cana.getValorDevengo());
+			System.out.println("valor para el día " + dia + ": " + "$" + corte_cana.getValorDevengo());
 			dia++;
 		}
 		
