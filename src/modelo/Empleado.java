@@ -1,5 +1,9 @@
 package modelo;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 public class Empleado {
 	int id;
 	int ficha_eps;	
@@ -9,11 +13,12 @@ public class Empleado {
 	int eps; //código
 	int fpp; //fondo de pensión. código
 	String fecha_nacimiento;
-	String fecha_ingreso;
-	String fecha_retiro;
+	Date fecha_ingreso;
+	Date fecha_retiro;
 	boolean tipo_trabajador; //true: socio; false: no socio
 	boolean tipo_salario; //true: acumulado; false: fijo
 	long cuenta_bancaria;
+	SimpleDateFormat sdf;
 	
 	public Empleado(int id, int ficha_eps, String nombre, String apellido, String direccion, int eps, int fpp,
 			String fecha_nacimiento, String fecha_ingreso, String fecha_retiro, boolean tipo_trabajador,
@@ -26,8 +31,16 @@ public class Empleado {
 		this.eps = eps;
 		this.fpp = fpp;
 		this.fecha_nacimiento = fecha_nacimiento;
-		this.fecha_ingreso = fecha_ingreso;
-		this.fecha_retiro = fecha_retiro;
+		
+        sdf = new SimpleDateFormat("yyyyMMdd");
+		try {
+			this.fecha_ingreso = sdf.parse(fecha_ingreso);
+			//this.fecha_retiro= sdf.parse(fecha_retiro);
+		}
+		catch (Exception e) {
+            System.out.println("Error al inicializar la fecha: " + e.getMessage());
+		}
+		
 		this.tipo_trabajador = tipo_trabajador;
 		this.tipo_salario = tipo_salario;
 		this.cuenta_bancaria = cuenta_bancaria;
@@ -83,18 +96,33 @@ public class Empleado {
 	public void setFechaNacimiento(String fecha_nacimiento) {
 		this.fecha_nacimiento = fecha_nacimiento;
 	}
-	public String getFechaIngreso() {
+	
+	public Date getFechaIngreso() {
 		return fecha_ingreso;
 	}
+	
 	public void setFechaIngreso(String fecha_ingreso) {
-		this.fecha_ingreso = fecha_ingreso;
+		try {
+			this.fecha_ingreso = sdf.parse(fecha_ingreso);
+		}
+		catch (Exception e) {
+			System.out.println("Error al inicializar fecha");
+		}
 	}
-	public String getFechaRetiro() {
+	
+	public Date getFechaRetiro() {
 		return fecha_retiro;
 	}
+	
 	public void setFechaRetiro(String fecha_retiro) {
-		this.fecha_retiro = fecha_retiro;
+		try {
+			this.fecha_ingreso = sdf.parse(fecha_retiro);
+		}
+		catch (Exception e) {
+			System.out.println("Error al inicializar fecha");
+		}
 	}
+	
 	public boolean getTipoTrabajador() {
 		return tipo_trabajador;
 	}

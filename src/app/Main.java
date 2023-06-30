@@ -30,7 +30,7 @@ public class Main {
 			System.out.println("valor para el día " + dia + ": " + "$" + corte_cana.getValorDevengo());
 			dia++;
 		}
-		
+		//controlador.listarArchivos();
 		
 		
 		

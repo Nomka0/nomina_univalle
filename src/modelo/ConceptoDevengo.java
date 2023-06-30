@@ -1,10 +1,12 @@
 package modelo;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ConceptoDevengo extends Entidad{
 	int codigo;
 	String nombre;
-	String fecha;
-	float valor_devengo;
+    Date fecha = new Date();
+    float valor_devengo;
 	boolean hace_base;
 	char tipo_dia;
 	int tipo_cana;
@@ -15,7 +17,14 @@ public class ConceptoDevengo extends Entidad{
 	 
 	public ConceptoDevengo(int codigo, String fecha, String nombre, float corte_kilos, int tipo_cana,char tipo_dia) {
 		super(codigo, nombre);
-		this.fecha = fecha;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		try {
+			this.fecha = sdf.parse(fecha);
+		}
+		catch (Exception e) {
+            System.out.println("Error al inicializar la fecha: " + e.getMessage());
+		}
+        
 		this.tipo_dia = tipo_dia;
 		this.tipo_cana = tipo_cana;
 		hace_base = false;
