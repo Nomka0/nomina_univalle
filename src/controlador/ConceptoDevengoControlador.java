@@ -23,7 +23,7 @@ public class ConceptoDevengoControlador {
 	public ConceptoDevengoControlador() {
 		devengosDAO = new ConceptoDevengoDAO();
 		devengos = devengosDAO.obtenerTodos();
-        carpeta = "CSVs";
+        carpeta = "CSVs/devengos";
 		//ruta_archivo = "CSVs/corte_cana1.csv";
 	}
 	

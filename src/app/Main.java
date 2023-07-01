@@ -3,6 +3,7 @@ import modelo.TarifaCana;
 import modelo.ConceptoDevengo;
 import dao.ConceptoDevengoDAO;
 import controlador.ConceptoDevengoControlador;
+import controlador.EmpleadoControlador;
 
 //testeando para archivos de corte de caña...
 import java.io.File;
@@ -32,7 +33,10 @@ public class Main {
 		}
 		//controlador.listarArchivos();
 		
-		
+		//debug para empleados
+		//testeando...
+		EmpleadoControlador controlador_empleados = new EmpleadoControlador();
+		controlador_empleados.leerArchivo();;
 		
 	}
 
