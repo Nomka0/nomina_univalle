@@ -10,6 +10,7 @@ import modelo.ConceptoDevengo;
 import modelo.TarifaCana;
 
 import java.util.Arrays;
+import java.util.Date;
 
 public class ConceptoDevengoControlador {
 	private ConceptoDevengoDAO devengosDAO;
@@ -50,9 +51,18 @@ public class ConceptoDevengoControlador {
 	}
 	
 	//para averiguar cuando es un periodo de semestre
-	public void mesesTranscurridos() {
+	public int mesesTranscurridos() {
+		ConceptoDevengo primero = devengosDAO.obtener(0);//obtengo la primer fecha de trabajo, para comparlo
 		ConceptoDevengo ultimo = devengosDAO.obtener(devengosDAO.obtenerTodos().size()-1);//obtengo el último, para averiguar la última fehca
-		System.out.println(ultimo.getFecha()); 
+		Date ultima_fecha = ultimo.getFecha();
+		Date primera_fecha = primero.getFecha();
+		
+		int mes_primero = primera_fecha.getMonth()+1;
+		int mes_ultimo = ultima_fecha.getMonth()+1;
+		
+		int cuantos_meses = mes_ultimo - mes_primero;
+		System.out.println("han pasado " + mes_primero + " meses");
+		return cuantos_meses;
 	}
 	
 	public void leerArchivo() {
