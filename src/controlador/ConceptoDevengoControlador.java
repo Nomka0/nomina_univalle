@@ -15,15 +15,15 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class ConceptoDevengoControlador {
-	//private ConceptoDevengoDAO devengosDAO;
-	private List<ConceptoDevengo> devengos;
+	//private ConceptoDevengoDAO devengosDAO; //DEPRECATED
+	//private List<ConceptoDevengo> devengos;
 	private String carpeta;
 	private File[] archivos = {};
     private Map<Integer, ConceptoDevengoDAO> empleadosDAOS;
     		
 	public ConceptoDevengoControlador() {
-		devengosDAO = new ConceptoDevengoDAO();
-		devengos = devengosDAO.obtenerTodos();
+		//devengosDAO = new ConceptoDevengoDAO(); //DEPRECATED
+		//devengos = devengosDAO.obtenerTodos();  //DEPRECATED
 		carpeta = "CSVs/empleados";
 		empleadosDAOS = new HashMap<>();
 		//ruta_archivo = "CSVs/corte_cana1.csv";
@@ -32,6 +32,8 @@ public class ConceptoDevengoControlador {
 	public List<ConceptoDevengo> getDevengoDAO() {
 		return devengos; 
 	}
+	
+	public ConceptoDevengo
 
 	public void listarArchivos(int id_empleado) {
 		File directorio = new File(carpeta + id_empleado + devengos);
