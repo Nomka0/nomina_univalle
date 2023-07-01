@@ -2,6 +2,7 @@ package app;
 import modelo.TarifaCana;
 import modelo.ConceptoDevengo;
 import dao.ConceptoDevengoDAO;
+import dao.EmpleadoDAO;
 import controlador.ConceptoDevengoControlador;
 import controlador.EmpleadoControlador;
 
@@ -36,7 +37,10 @@ public class Main {
 		//debug para empleados
 		//testeando...
 		EmpleadoControlador controlador_empleados = new EmpleadoControlador();
-		controlador_empleados.leerArchivo();;
+		controlador_empleados.leerArchivo();
+		EmpleadoDAO dao_empleados = controlador_empleados.getDAO();
+		System.out.println(dao_empleados.obtener(1));
+		
 		
 	}
 

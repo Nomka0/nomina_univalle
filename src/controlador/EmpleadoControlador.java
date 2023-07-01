@@ -19,6 +19,10 @@ public class EmpleadoControlador {
 		empleadosDAO = new EmpleadoDAO();
 		ruta_archivo = "CSVs/Trabajadores.csv";
 	}
+	
+	public EmpleadoDAO getDAO() {
+		return empleadosDAO; 
+	}
 	/*
 	public crearCarpeta() {
 
