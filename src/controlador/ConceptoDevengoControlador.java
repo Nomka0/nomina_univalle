@@ -29,14 +29,16 @@ public class ConceptoDevengoControlador {
 		//ruta_archivo = "CSVs/corte_cana1.csv";
 	}
 
-	public List<ConceptoDevengo> getDevengoDAO() {
-		return devengos; 
+	public Map<Integer, ConceptoDevengoDAO> getMapDevengosDAO() {
+		return empleadosDAOS; 
 	}
 	
-	public ConceptoDevengo
+	public ConceptoDevengoDAO seleccionarDAO(int ID) {//Selecciona un DAO del map según su id
+		return empleadosDAOS.get(ID);
+	}
 
 	public void listarArchivos(int id_empleado) {
-		File directorio = new File(carpeta + id_empleado + devengos);
+		File directorio = new File(carpeta + id_empleado + "devengos");
 		if (directorio.isDirectory()) {
 			// Obtener la lista de archivos en la carpeta
 			archivos = directorio.listFiles();
@@ -55,9 +57,10 @@ public class ConceptoDevengoControlador {
 	}
 
 	//para averiguar cuando es un periodo de semestre
-	public int mesesTranscurridos() {
-		ConceptoDevengo primero = devengosDAO.obtener(0);//obtengo la primer fecha de trabajo, para comparlo
-		ConceptoDevengo ultimo = devengosDAO.obtener(devengosDAO.obtenerTodos().size()-1);//obtengo el último, para averiguar la última fehca
+	public int mesesTranscurridos(int id_empleado) {
+		ConceptoDevengoDAO devengos_empleado = seleccionarDAO(id_empleado);
+		ConceptoDevengo primero = devengos_empleado.obtener(0);//obtengo la primer fecha de trabajo, para comparlo
+		ConceptoDevengo ultimo = devengos_empleado.obtener(devengos_empleado.obtenerTodos().size()-1);//obtengo el último, para averiguar la última fehca
 		Date ultima_fecha = ultimo.getFecha();
 		Date primera_fecha = primero.getFecha();
 
@@ -157,10 +160,9 @@ public class ConceptoDevengoControlador {
 				e.printStackTrace();
 			}	
 		}
-		return nuevo_devengo;
-		
 		//TO-DO//
-		//mesesTranscurridos();// ver si retrona correctamente la fecha
+		mesesTranscurridos(id_empleado);// ver si retrona correctamente la fecha
+		return nuevo_devengo;
 	}
 
 	public static void reverseFileArray(File[] arr) {
