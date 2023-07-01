@@ -49,6 +49,12 @@ public class ConceptoDevengoControlador {
         }
 	}
 	
+	//para averiguar cuando es un periodo de semestre
+	public void mesesTranscurridos() {
+		ConceptoDevengo ultimo = devengosDAO.obtener(devengosDAO.obtenerTodos().size()-1);//obtengo el último, para averiguar la última fehca
+		System.out.println(ultimo.getFecha()); 
+	}
+	
 	public void leerArchivo() {
 		listarArchivos();
 		int quincena_counter = 0; //cuando llegue a 12, significa que habrán pasado 2 semanas, entonces reinicia, para dar el valor de la siguiente quincena
@@ -91,7 +97,7 @@ public class ConceptoDevengoControlador {
 		                devengosDAO.crear(tarifa_individual);
 		                quincena_counter = 0;
 	                }
-	       
+	                
 				}
 				// Cerrar el scanner después de terminar de leer el archivo
 				scanner.close();
@@ -99,8 +105,7 @@ public class ConceptoDevengoControlador {
 				e.printStackTrace();
 			}	
 		}
-
-		
+		mesesTranscurridos();// ver si retrona correctamente la fecha
 	}
 	
     public static void reverseFileArray(File[] arr) {

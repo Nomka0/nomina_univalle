@@ -29,6 +29,10 @@ public class ConceptoDevengo extends Entidad{
 		//pago_corte_cana = new TarifaCana();
 	}
 	
+	public Date getFecha() {
+		return fecha;
+	}
+	
 	public float getValorDevengo( ) {
 		return valor_devengo;
 	}
