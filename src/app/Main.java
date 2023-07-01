@@ -39,9 +39,8 @@ public class Main {
 		EmpleadoControlador controlador_empleados = new EmpleadoControlador();
 		controlador_empleados.leerArchivo();
 		EmpleadoDAO dao_empleados = controlador_empleados.getDAO();
-		System.out.println(dao_empleados.obtener(1));
-		
-		
+		System.out.println(dao_empleados.obtener(3).getId());
+				
 	}
 
 

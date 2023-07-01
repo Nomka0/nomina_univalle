@@ -13,25 +13,48 @@ import java.io.FileNotFoundException;
 public class EmpleadoControlador {
 
 	private EmpleadoDAO empleadosDAO;
-	private String ruta_archivo;
+	private String lista_trabajadores;
 
 	public EmpleadoControlador() {
 		empleadosDAO = new EmpleadoDAO();
-		ruta_archivo = "CSVs/Trabajadores.csv";
+		lista_trabajadores = "CSVs/Trabajadores.csv";
 	}
 	
 	public EmpleadoDAO getDAO() {
 		return empleadosDAO; 
 	}
-	/*
-	public crearCarpeta() {
-
+	
+	public void crearCarpeta(int id_empleado) {
+		String ruta_carpeta = "CSVs/empleados/" + id_empleado + "devengos";
+		File carpeta = new File(ruta_carpeta);
+		
+        // Verificamos si la carpeta ya existe
+        if (!carpeta.exists()) {
+            // Intentamos crear la carpeta
+            if (carpeta.mkdirs()) {
+                System.out.println("La carpeta ha sido creada exitosamente.");
+            } else {
+                System.out.println("Error al crear la carpeta.");
+            }
+        } else {
+            System.out.println("La carpeta ya existe.");
+        }
 	}
-	 */
+	
+	//verifica si todos los usuarios tienen sus carpetas creadas. Si uno no la tiene, tin, la crea
+	public void verificarCarpetas() {
+		List<Empleado> all_empleados = getDAO().obtenerTodos();
+		
+		for(Empleado empleado : all_empleados) {
+			int id_empleado = empleado.getId();
+			crearCarpeta(id_empleado);
+		}
+	}
+	 
 	public void leerArchivo() {
 		boolean primeraLinea = true; // Para indicar si es la primera línea del archivo
 		try {
-	        File archivo = new File(ruta_archivo);
+	        File archivo = new File(lista_trabajadores);
 			// Crear instancia de Scanner para leer el archivo
 			Scanner scanner = new Scanner(archivo);
 
@@ -65,6 +88,13 @@ public class EmpleadoControlador {
 						activo, tipo_trabajador, tipo_salario,cuenta_bancaria);
 				empleadosDAO.crear(empleado_individual);
 			}
+			
+			//ESTE BLOQUE SE VA A COMENTAR. SOLAMENTE ES PARA DEBUGGEAR UNA CUESTIÓN DE CARPETAS//
+			Empleado empleado_test = new Empleado(1000, "empleado", "ficticio", "nose jajaj", 69420, 1234, "20230619",
+					"Sí", "Socio", "Fijo",235437364);
+			empleadosDAO.crear(empleado_test);
+			//ESTE BLOQUE SE VA A COMENTAR. SOLAMENTE ES PARA DEBUGGEAR UNA CUESTIÓN DE CARPETAS//
+			
 			// Cerrar el scanner después de terminar de leer el archivo
 			scanner.close();
 		} catch (FileNotFoundException e) {
