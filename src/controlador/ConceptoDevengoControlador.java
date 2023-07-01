@@ -65,12 +65,17 @@ public class ConceptoDevengoControlador {
 		Date ultima_fecha = ultimo.getFecha();
 		Date primera_fecha = primero.getFecha();
 
-		int mes_primero = primera_fecha.getMonth()+1;
-		int mes_ultimo = ultima_fecha.getMonth()+1;
+	    int mes_primero = primera_fecha.getMonth() + 1;
+	    int mes_ultimo = ultima_fecha.getMonth() + 1;
 
-		int cuantos_meses = mes_ultimo - mes_primero;
-		System.out.println("han pasado " + mes_primero + " meses");
-		return cuantos_meses;
+	    int ano_primero = primera_fecha.getYear() + 1900;//esa librería está komo deprecated
+	    //y tiene ciertas cosas raras, como que eñ año comienza desde 1900, entonces x eso se le suma 1900
+	    int ano_ultimo = ultima_fecha.getYear() + 1900;
+
+	    int cuantos_meses = (ano_ultimo - ano_primero) * 12 + (mes_ultimo - mes_primero);
+
+	    System.out.println("Han pasado " + cuantos_meses + " meses.");
+	    return cuantos_meses;
 	}
 
 	public int[] getEmpleadosDir() {
@@ -105,11 +110,15 @@ public class ConceptoDevengoControlador {
 	//un leerArchivo pero para todos los empleados
 	public void leerSubArchivos() { //Toma toooodos los empleados que listó getEmpleadosDir() y lee sus archivos con el método de leerArchivo
 		int[] directorios_empleados = getEmpleadosDir();
+		
 		for (int directorio : directorios_empleados) {
 			empleadosDAOS.put(directorio, leerArchivo(directorio)); //pone en el map la clave (que sería el nombre de la carpeta, la cual es el id de
 			//empleado) y el dao de devengo retornado por leerArchivo.
+			System.out.println(mesesTranscurridos(directorio));// ver si retrona correctamente la fecha
 		}
 		System.out.println(empleadosDAOS);
+		//TO-DO//
+		
 	}
 
 	public ConceptoDevengoDAO leerArchivo(int id_empleado) {
@@ -164,8 +173,6 @@ public class ConceptoDevengoControlador {
 				e.printStackTrace();
 			}	
 		}
-		//TO-DO//
-		//mesesTranscurridos(id_empleado);// ver si retrona correctamente la fecha
 		return nuevo_devengo;
 	}
 
