@@ -19,10 +19,10 @@ public class TarifaCana {
 		tipos.put(new Pair(2, 'F'), 4);//cruda festiva
 
 		//inicialización tarifas
-		tarifas.put(1, 300000);//el dato de clave es el tipo de tarifa, el dato a acceder es el valor en pesos
-		tarifas.put(2, 400000);
-		tarifas.put(3, 800000);
-		tarifas.put(4, 1000000);
+		tarifas.put(1, 80000);//el dato de clave es el tipo de tarifa, el dato a acceder es el valor en pesos
+		tarifas.put(2, 100000);
+		tarifas.put(3, 150000);
+		tarifas.put(4, 200000);
 		
 		this.cana_tipo = cana_tipo;
 		this.dia_tipo = dia_tipo;
@@ -30,7 +30,7 @@ public class TarifaCana {
 	
 	public int getTipo() {
 		int tipo = tipos.get(new Pair(cana_tipo, dia_tipo));
-		getTipoString(tipo);
+		//getTipoString(tipo); //esto es para debugear
 		return tipo;
 	}
 
@@ -62,7 +62,7 @@ public class TarifaCana {
 		int tarifa = tarifas.get(tipo);
 		
 		//getTipoString(tipo);
-		System.out.println("el valor de la tarifa es " + tarifa);
+		//System.out.println("el valor de la tarifa es " + tarifa); //esto es para debug
 		return tarifa;
 	}
 

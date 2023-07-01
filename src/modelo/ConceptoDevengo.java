@@ -10,8 +10,8 @@ public class ConceptoDevengo extends Entidad{
 	private boolean hace_base;
 	
 	 
-	public ConceptoDevengo(int codigo, String fecha, float corte_kilos) {
-		super(codigo, "CORTE DE CAÑA");
+	public ConceptoDevengo(int codigo, String nombre, String fecha, float corte_kilos) {
+		super(codigo, nombre);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		try {
 			this.fecha = sdf.parse(fecha);

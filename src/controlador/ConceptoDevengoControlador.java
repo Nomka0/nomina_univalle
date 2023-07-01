@@ -51,6 +51,8 @@ public class ConceptoDevengoControlador {
 	
 	public void leerArchivo() {
 		listarArchivos();
+		int quincena_counter = 0; //cuando llegue a 12, significa que habrán pasado 2 semanas, entonces reinicia, para dar el valor de la siguiente quincena
+		float quincena_total = 0; //el acumulado de todo lo que se cortó en la quincena
 		for (File ruta_archivo : archivos) {
 	        boolean primeraLinea = true; // Para indicar si es la primera línea del archivo
 			try {
@@ -73,16 +75,23 @@ public class ConceptoDevengoControlador {
 					// Acceder a los datos de cada campo
 	                int ficha = Integer.parseInt(campos[0]);
 	                String fechaCorte = campos[1];
-	                String haciendaSuerte = campos[2];
+	                //String haciendaSuerte = campos[2]; //considero que no es relevante (por ahora)
 	                float toneladaCorte = Float.parseFloat(campos[3]);
 	                int tipoCana = Integer.parseInt(campos[4]);
 	                char diaCorte = campos[5].charAt(0);
 	                
 	                TarifaCana cana_evaluar = new TarifaCana(tipoCana, diaCorte);
 	                float corte_toneladas =  cana_evaluar.getTarifa() * (toneladaCorte/1000);
+	                quincena_total += corte_toneladas;
+	               
+	                quincena_counter++;
 	                
-	                ConceptoDevengo tarifa_individual= new ConceptoDevengo(ficha, fechaCorte, corte_toneladas);
-	                devengosDAO.crear(tarifa_individual);
+	                if(quincena_counter == 12) {//
+		                ConceptoDevengo tarifa_individual= new ConceptoDevengo(ficha,"QUINCENA CORTE DE CAÑA" , fechaCorte, quincena_total);
+		                devengosDAO.crear(tarifa_individual);
+		                quincena_counter = 0;
+	                }
+	       
 				}
 				// Cerrar el scanner después de terminar de leer el archivo
 				scanner.close();
