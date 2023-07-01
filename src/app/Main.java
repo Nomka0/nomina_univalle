@@ -21,12 +21,15 @@ public class Main {
 		//entonces supongo que lo que podemos hacer es por cada quincena crear dos archivos
 		//aquí estoy en devengos
 		//testeando para archivo de corte de caña...
-		ConceptoDevengoControlador controlador = new ConceptoDevengoControlador();
-		controlador.leerArchivo();
+		ConceptoDevengoControlador controlador_devengo = new ConceptoDevengoControlador();
+		controlador_devengo.leerSubArchivos();
 		
+		/*
 		
 		//debug para ver si se registarion bn
-		List<ConceptoDevengo> cortes_cana = controlador.getDevengoDAO();
+		//List<ConceptoDevengo> cortes_cana = controlador.getDevengoDAO();
+		
+		
 		int quincena = 1;
 		for (ConceptoDevengo corte_cana : cortes_cana) {
 			System.out.println("valor para la quincena " + quincena + ": " + "$" + corte_cana.getValorDevengo());
@@ -40,7 +43,8 @@ public class Main {
 		controlador_empleados.leerArchivo();
 		EmpleadoDAO dao_empleados = controlador_empleados.getDAO();
 		System.out.println(dao_empleados.obtener(3).getId());
-				
+			
+		*/		
 	}
 
 

@@ -24,7 +24,7 @@ public class ConceptoDevengoControlador {
 	public ConceptoDevengoControlador() {
 		//devengosDAO = new ConceptoDevengoDAO(); //DEPRECATED
 		//devengos = devengosDAO.obtenerTodos();  //DEPRECATED
-		carpeta = "CSVs/empleados";
+		carpeta = "CSVs/empleados/";
 		empleadosDAOS = new HashMap<>();
 		//ruta_archivo = "CSVs/corte_cana1.csv";
 	}
@@ -38,7 +38,8 @@ public class ConceptoDevengoControlador {
 	}
 
 	public void listarArchivos(int id_empleado) {
-		File directorio = new File(carpeta + id_empleado + "devengos");
+		File directorio = new File(carpeta + id_empleado + "/devengos");
+		//System.out.println("Nombre de carpeta: " + directorio);
 		if (directorio.isDirectory()) {
 			// Obtener la lista de archivos en la carpeta
 			archivos = directorio.listFiles();
@@ -72,40 +73,43 @@ public class ConceptoDevengoControlador {
 		return cuantos_meses;
 	}
 
-	public Integer[] getEmpleadosDir() { //Se va al directorio de empleados y guarda en un array tooooodos los subdirectorios para los empleados que existen 
-		File directorio = new File(carpeta); 
-		archivos = directorio.listFiles();
-		reverseFileArray(archivos);
-		Integer[] nombres_subdirectorios= {};
+	public int[] getEmpleadosDir() {
+	    File directorio = new File(carpeta);
+	    File[] archivos = directorio.listFiles();
 
-		// Verificar si la ruta corresponde a un directorio válido
-		if (directorio.isDirectory()) {
-			// Obtener una lista de archivos y directorios dentro del directorio
-			File[] subdirectorios_empleados = archivos;
+	    // Verificar si la ruta corresponde a un directorio válido
+	    if (directorio.isDirectory()) {
+	        // Invertir el orden del arreglo de archivos (opcional)
+	        Arrays.asList(archivos).sort((a, b) -> b.getName().compareTo(a.getName()));
 
-			// Iterar sobre la lista de elementos y mostrar solo los directorios
-			for (File elemento : subdirectorios_empleados) {
-				if (elemento.isDirectory()) {
-					System.out.println("Directorio: " + elemento.getName());
-				}
-			}
-			for (int i = 0; i < subdirectorios_empleados.length; i++) {
-				nombres_subdirectorios[i] = Integer.parseInt(subdirectorios_empleados[i].getName());//pasandolo a un array de string, para poder usarlo después
-																				  //en los otros métodos
-			}
-		} else {
-			System.out.println("La ruta no corresponde a un directorio válido.");
-		}
-		return nombres_subdirectorios;
+	        int[] nombres_subdirectorios = new int[archivos.length];
+	        for (int i = 0; i < archivos.length; i++) {
+	            if (archivos[i].isDirectory()) {
+	                try {
+	                    nombres_subdirectorios[i] = Integer.parseInt(archivos[i].getName());
+	                    System.out.println("Directorio: " + nombres_subdirectorios[i]);
+	                } catch (NumberFormatException e) {
+	                    // Manejo de excepción si el nombre del subdirectorio no es un número válido
+	                    System.out.println("El nombre del subdirectorio no es un número válido.");
+	                }
+	            }
+	        }
+	        return nombres_subdirectorios;
+	    } else {
+	        System.out.println("La ruta no corresponde a un directorio válido.");
+	        return new int[0]; // Retorna un arreglo vacío en caso de que no sea un directorio válido
+	    }
 	}
+
 
 	//un leerArchivo pero para todos los empleados
 	public void leerSubArchivos() { //Toma toooodos los empleados que listó getEmpleadosDir() y lee sus archivos con el método de leerArchivo
-		Integer[] directorios_empleados = getEmpleadosDir();
+		int[] directorios_empleados = getEmpleadosDir();
 		for (int directorio : directorios_empleados) {
 			empleadosDAOS.put(directorio, leerArchivo(directorio)); //pone en el map la clave (que sería el nombre de la carpeta, la cual es el id de
 			//empleado) y el dao de devengo retornado por leerArchivo.
 		}
+		System.out.println(empleadosDAOS);
 	}
 
 	public ConceptoDevengoDAO leerArchivo(int id_empleado) {
@@ -161,7 +165,7 @@ public class ConceptoDevengoControlador {
 			}	
 		}
 		//TO-DO//
-		mesesTranscurridos(id_empleado);// ver si retrona correctamente la fecha
+		//mesesTranscurridos(id_empleado);// ver si retrona correctamente la fecha
 		return nuevo_devengo;
 	}
 
