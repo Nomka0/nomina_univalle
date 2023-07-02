@@ -190,6 +190,10 @@ public class ConceptoDevengoControlador {
 		}
 		return nuevo_devengo;
 	}
+	
+	public void retiroCompania(int id_empleado) {
+		
+	}
 
 	public void prestacioneSociales(int id_empleado, int meses_transcurridos) {
 		if (meses_transcurridos >= 6) {
@@ -212,7 +216,7 @@ public class ConceptoDevengoControlador {
 			
 			for(int i = 0; i < semestres; i++) {
             	String fechaFormateada = formatoDeseado.format(fecha_ultimo_concepto);
-            	//System.out.println(fechaFormateada);
+            	System.out.println(fechaFormateada);
 				ConceptoDevengo prestaciones_sociales = new ConceptoDevengo(id_empleado,"PRESTACIONES SOCIALES", fechaFormateada, sumatoria_devengos_base);
 				devengos_empleado.crear(prestaciones_sociales);
 				calendar.setTime(fecha_ultimo_concepto);
