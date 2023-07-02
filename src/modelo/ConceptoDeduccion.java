@@ -1,8 +1,13 @@
 package modelo;
 
+import dao.ConceptoDevengoDAO;
+import java.util.List;
+import modelo.ConceptoDevengo;
+import modelo.Entidad;
+
 public class ConceptoDeduccion extends Entidad {
-    int codigo;
-    String nombre;
+    private int codigo;
+    private String nombre;
     private boolean esAutomatico;
     private double valorBase;
     
@@ -30,5 +35,15 @@ public class ConceptoDeduccion extends Entidad {
     
     public void setValorBase(double valorBase) {
         this.valorBase = valorBase;
+    }
+    
+    public double sumatoria(ConceptoDevengoDAO sacarDevengos) {
+        double sumatoriaDevengos = 0;
+        List<ConceptoDevengo> devengosAnalizar = sacarDevengos.obtenerTodos();
+        for (ConceptoDevengo devengoAnalizar : devengosAnalizar) {
+            double devengoSumar = devengoAnalizar.getValorDevengo();
+            sumatoriaDevengos += devengoSumar;
+        }
+        return sumatoriaDevengos;
     }
 }
