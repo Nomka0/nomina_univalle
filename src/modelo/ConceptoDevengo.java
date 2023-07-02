@@ -29,8 +29,15 @@ public class ConceptoDevengo extends Entidad{
 	
 	//en el caso de este constructor, el valor de del devengo, sería el de cada uno
 	//de las prestaciones sociales
-	public ConceptoDevengo(int codigo, String nombre, double sumatoria_base) {
+	public ConceptoDevengo(int codigo, String nombre, String fecha,double sumatoria_base) {
 		super(codigo, nombre);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		try {
+			this.fecha = sdf.parse(fecha);
+		}
+		catch (Exception e) {
+            System.out.println("Error al inicializar la fecha: " + e.getMessage());
+		}
 		calcularPrestaciones(sumatoria_base);
 		hace_base = false;
 		//valor_devengo = 0;

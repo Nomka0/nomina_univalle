@@ -16,6 +16,7 @@ import modelo.ConceptoDevengo;
 import modelo.TarifaCana;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -197,10 +198,26 @@ public class ConceptoDevengoControlador {
 			ConceptoDevengoDAO devengos_empleado = seleccionarDAO(id_empleado);//sirve
 			double sumatoria_devengos_base = sumatoria(devengos_empleado)/semestres;//sirve
 
+			Calendar calendar = Calendar.getInstance();
+			ConceptoDevengo ultimo_concepto = devengos_empleado.obtener(devengos_empleado.obtenerTodos().size()-1);
+			Date fecha_ultimo_concepto = ultimo_concepto.getFecha();
+			
+	        calendar.setTime(fecha_ultimo_concepto);
+	        SimpleDateFormat formatoDeseado = new SimpleDateFormat("yyyyMMdd");
+			calendar.setTime(fecha_ultimo_concepto);
+			//System.out.println(fecha_ultimo_concepto);
+			calendar.add(Calendar.MONTH, - 6*semestres);
+			fecha_ultimo_concepto = calendar.getTime();
+			
 			
 			for(int i = 0; i < semestres; i++) {
-				ConceptoDevengo prestaciones_sociales = new ConceptoDevengo(id_empleado, "PRESTACIONES SOCIALES", sumatoria_devengos_base);
+            	String fechaFormateada = formatoDeseado.format(fecha_ultimo_concepto);
+            	//System.out.println(fechaFormateada);
+				ConceptoDevengo prestaciones_sociales = new ConceptoDevengo(id_empleado,"PRESTACIONES SOCIALES", fechaFormateada, sumatoria_devengos_base);
 				devengos_empleado.crear(prestaciones_sociales);
+				calendar.setTime(fecha_ultimo_concepto);
+				calendar.add(Calendar.MONTH, + 6);
+				fecha_ultimo_concepto = calendar.getTime();
 			}
 		}
 	}
