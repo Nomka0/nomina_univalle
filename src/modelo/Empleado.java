@@ -60,6 +60,14 @@ public class Empleado {
 	}
 
 
+	public boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
