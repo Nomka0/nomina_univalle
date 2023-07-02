@@ -27,6 +27,8 @@ public class ConceptoDevengo extends Entidad{
 		valor_devengo = corte_kilos;
 	}
 	
+	//en el caso de este constructor, el valor de del devengo, sería el de cada uno
+	//de las prestaciones sociales
 	public ConceptoDevengo(int codigo, String nombre, double sumatoria_base) {
 		super(codigo, nombre);
 		calcularPrestaciones(sumatoria_base);
@@ -36,10 +38,10 @@ public class ConceptoDevengo extends Entidad{
 	}
 	
 	public void calcularPrestaciones(double sumatoria_base) { //prestaciones sociales
-		cesantias = sumatoria_base * 0.0833;
-		intereses_cesantias = sumatoria_base * 0.01;
-		prima = sumatoria_base * 0.0833; 
-		vacaciones = sumatoria_base * 0.0417;
+		cesantias = sumatoria_base * 0.0833; // 8.33
+		intereses_cesantias = sumatoria_base * 0.01; // 1%
+		prima = sumatoria_base * 0.0833; // 8.33% 
+		vacaciones = sumatoria_base * 0.0417; // 4.17%
 	}
 	
 
@@ -75,6 +77,8 @@ public class ConceptoDevengo extends Entidad{
 	public void setHaceBase(boolean hace_base) {
 		this.hace_base = hace_base;
 	}
+	
+	
 	
 	//cada dao tendra 2 de estos (ya que son reportes semanales y la liquidación de nomina es quincenal)
 	

@@ -2,6 +2,9 @@ package controlador;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -41,7 +44,7 @@ public class ConceptoDevengoControlador {
 	}
 
 	public void listarArchivos(int id_empleado) {
-		File directorio = new File(carpeta + id_empleado + "/devengos");
+		File directorio = new File(carpeta + id_empleado + "/cortes_semanales");
 		//System.out.println("Nombre de carpeta: " + directorio);
 		if (directorio.isDirectory()) {
 			// Obtener la lista de archivos en la carpeta
@@ -191,9 +194,10 @@ public class ConceptoDevengoControlador {
 		if (meses_transcurridos >= 6) {
 			int semestres = (int) Math.floor(meses_transcurridos/6);
 
-			ConceptoDevengoDAO devengos_empleado = seleccionarDAO(id_empleado);
-			double sumatoria_devengos_base = sumatoria(devengos_empleado)/semestres;
+			ConceptoDevengoDAO devengos_empleado = seleccionarDAO(id_empleado);//sirve
+			double sumatoria_devengos_base = sumatoria(devengos_empleado)/semestres;//sirve
 
+			
 			for(int i = 0; i < semestres; i++) {
 				ConceptoDevengo prestaciones_sociales = new ConceptoDevengo(id_empleado, "PRESTACIONES SOCIALES", sumatoria_devengos_base);
 				devengos_empleado.crear(prestaciones_sociales);
@@ -210,6 +214,33 @@ public class ConceptoDevengoControlador {
 			sumatoria_devengos += devengo_sumar;
 		}
 		return sumatoria_devengos;
+	}
+
+	public void crearArchivosCSV() {
+	    for (Map.Entry<Integer, ConceptoDevengoDAO> entry : empleadosDAOS.entrySet()) {
+	        int id_empleado = entry.getKey();
+	        ConceptoDevengoDAO dao = entry.getValue();
+	        List<ConceptoDevengo> devengos = dao.obtenerTodos();
+
+	        String nombreArchivo = carpeta + id_empleado + "/devengos.csv";
+	        try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
+	            // Escribir encabezados en el archivo CSV
+	            writer.println("Ficha,Concepto,Fecha,Valor(solo base),Cesantias,Intereses,Primas,Vacaciones");
+
+	            // Escribir los datos de devengos en el archivo CSV
+	            for (ConceptoDevengo devengo : devengos) {
+	            	SimpleDateFormat formatoDeseado = new SimpleDateFormat("yyyyMMdd");
+	            	String fechaFormateada = formatoDeseado.format(devengo.getFecha());
+	            	String cesantias = Double.toString(devengo.getCesantias());
+	            	String intereses = Double.toString(devengo.getIntereses_cesantias());
+	            	String prima = Double.toString(devengo.getPrima());
+	            	String vacaciones = Double.toString(devengo.getVacaciones());
+	                writer.println(devengo.getCodigo() + "," + devengo.getNombre() + "," + fechaFormateada + "," + devengo.getValorDevengo() + "," + cesantias + "," + intereses + "," + prima + "," + vacaciones);
+	            }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
 	}
 
 	public static void reverseFileArray(File[] arr) {
