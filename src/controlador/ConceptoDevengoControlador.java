@@ -2,6 +2,8 @@ package controlador;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,6 +13,7 @@ import modelo.ConceptoDevengo;
 import modelo.TarifaCana;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -114,13 +117,17 @@ public class ConceptoDevengoControlador {
 		for (int directorio : directorios_empleados) {
 			empleadosDAOS.put(directorio, leerArchivo(directorio)); //pone en el map la clave (que sería el nombre de la carpeta, la cual es el id de
 			//empleado) y el dao de devengo retornado por leerArchivo.
-			System.out.println(mesesTranscurridos(directorio));// ver si retrona correctamente la fecha
+			int meses = mesesTranscurridos(directorio);// ver si retrona correctamente la fecha
+			prestacioneSociales(directorio, meses);
+			ConceptoDevengoDAO dao_test = empleadosDAOS.get(directorio);
+			ConceptoDevengo ultimo_dao = dao_test.obtener(dao_test.obtenerTodos().size()-1);
+			String tipo_devengo = ultimo_dao.getNombre();
+			System.out.println("Total de devengos: " + dao_test.obtenerTodos());
+			System.out.println("Ultimo devengo: " + tipo_devengo);
 		}
-		System.out.println(empleadosDAOS);
-		//TO-DO//
-		
+		System.out.println("Empleados y devengos: " + empleadosDAOS);
 	}
-
+	
 	public ConceptoDevengoDAO leerArchivo(int id_empleado) {
 		listarArchivos(id_empleado); // esto va a listar los archivos en el atributo de archivos de la clase, y así se va a poder usar acá
 		int quincena_counter = 0; //cuando llegue a 12, significa que habrán pasado 2 semanas, entonces reinicia, para dar el valor de la siguiente quincena
@@ -159,11 +166,15 @@ public class ConceptoDevengoControlador {
 					quincena_total += corte_toneladas;
 
 					quincena_counter++;
+					
 
+					
 					if(quincena_counter == 12) {//
-						ConceptoDevengo tarifa_individual= new ConceptoDevengo(ficha,"QUINCENA CORTE DE CAÑA" , fechaCorte, quincena_total);
+						ConceptoDevengo tarifa_individual= new ConceptoDevengo(ficha, fechaCorte, quincena_total);
 						nuevo_devengo.crear(tarifa_individual);
 						quincena_counter = 0;
+						System.out.println(id_empleado);
+						
 					}
 
 				}
@@ -175,6 +186,37 @@ public class ConceptoDevengoControlador {
 		}
 		return nuevo_devengo;
 	}
+	
+	public void prestacioneSociales(int id_empleado, int meses_transcurridos) {
+		if(meses_transcurridos == 6) {
+			ConceptoDevengoDAO devengos_empleado = seleccionarDAO(id_empleado);
+			double sumatoria_devengos_base = sumatoria(devengos_empleado);
+			ConceptoDevengo prestaciones_sociales = new ConceptoDevengo(id_empleado, "PRESTACIONES SOCIALES", sumatoria_devengos_base);
+			devengos_empleado.crear(prestaciones_sociales);
+		}
+		else if (meses_transcurridos > 6) {
+			int semestres = (int) Math.floor(meses_transcurridos/6);
+			
+			ConceptoDevengoDAO devengos_empleado = seleccionarDAO(id_empleado);
+			double sumatoria_devengos_base = sumatoria(devengos_empleado)/semestres;
+			
+			for(int i = 0; i < semestres; i++) {
+				ConceptoDevengo prestaciones_sociales = new ConceptoDevengo(id_empleado, "PRESTACIONES SOCIALES", sumatoria_devengos_base);
+				devengos_empleado.crear(prestaciones_sociales);
+			}
+		}
+	}
+	
+	//ejemplo método sumatoria
+    public double sumatoria(ConceptoDevengoDAO sacarDevengos) {
+            float sumatoria_devengos = 0;
+            List<ConceptoDevengo> devengo_analizar = sacarDevengos.obtenerTodos();
+            for(ConceptoDevengo devengos_analizar : devengo_analizar) {
+                    double devengo_sumar = devengos_analizar.getValorDevengo();
+                    sumatoria_devengos += devengo_sumar;
+            }
+            return sumatoria_devengos;
+    }
 
 	public static void reverseFileArray(File[] arr) {
 		int start = 0;
