@@ -2,39 +2,47 @@ package modelo;
 
 import dao.ConceptoDevengoDAO;
 import java.util.List;
-import modelo.ConceptoDevengo;
-import modelo.Entidad;
 
 public class ConceptoDeduccion extends Entidad {
     private int codigo;
     private String nombre;
-    private boolean esAutomatico;
-    private double valorBase;
-    
-    public ConceptoDeduccion(int codigo, String nombre, boolean esAutomatico, double valorBase) {
+
+    public ConceptoDeduccion(int codigo, String nombre) {
         super(codigo, nombre);
-        this.esAutomatico = esAutomatico;
-        this.valorBase = valorBase;
+        this.codigo = codigo;
+        this.nombre = nombre;
     }
-    
+
     public ConceptoDeduccion() {
         super();
     }
-    
-    public boolean esAutomatico() {
-        return esAutomatico;
+
+    public int getCodigo() {
+        return codigo;
     }
-    
-    public void setAutomatico(boolean esAutomatico) {
-        this.esAutomatico = esAutomatico;
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
-    
-    public double getValorBase() {
-        return valorBase;
+
+    public String getNombre() {
+        return nombre;
     }
-    
-    public void setValorBase(double valorBase) {
-        this.valorBase = valorBase;
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public double calcularValorDeduccion(double sumatoriaDevengos, double salarioMinimo) {
+        // Deducción automática de salud y fondo de pensión
+        if (sumatoriaDevengos > salarioMinimo) {
+            double porcentajeDeduccion = 0.04; // 4% para salud y fondo de pensión
+            return sumatoriaDevengos * porcentajeDeduccion;
+        } else {
+            // Deducción basada en el salario mínimo vigente
+            double valorDeduccion = 10000; // Ejemplo: valor de la deducción
+            return valorDeduccion;
+        }
     }
     
     public double sumatoria(ConceptoDevengoDAO sacarDevengos) {
