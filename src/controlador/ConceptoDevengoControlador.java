@@ -221,27 +221,7 @@ public class ConceptoDevengoControlador {
             return sumatoria_devengos;
     }
 
-	public void crearArchivosCSV() {
-	    for (Map.Entry<Integer, ConceptoDevengoDAO> entry : empleadosDAOS.entrySet()) {
-	        int id_empleado = entry.getKey();
-	        ConceptoDevengoDAO dao = entry.getValue();
-	        List<ConceptoDevengo> devengos = dao.obtenerTodos();
-
-	        String nombreArchivo = carpeta + id_empleado + "/devengos.csv";
-	        try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
-	            // Escribir encabezados en el archivo CSV
-	            writer.println("Ficha,Fecha,Valor");
-
-	            // Escribir los datos de devengos en el archivo CSV
-	            for (ConceptoDevengo devengo : devengos) {
-	                writer.println(devengo.getCodigo() + "," + devengo.getFecha() + "," + devengo.getValorDevengo());
-	            }
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	            System.out.println("no existe el archivo");
-	        }
-	    }
-	}
+	
 
 
 	public static void reverseFileArray(File[] arr) {
