@@ -236,6 +236,7 @@ public class ConceptoDevengoControlador {
 	            	String prima = Double.toString(devengo.getPrima());
 	            	String vacaciones = Double.toString(devengo.getVacaciones());
 	                writer.println(devengo.getCodigo() + "," + devengo.getNombre() + "," + fechaFormateada + "," + devengo.getValorDevengo() + "," + cesantias + "," + intereses + "," + prima + "," + vacaciones);
+	            
 	            }
 	        } catch (IOException e) {
 	            e.printStackTrace();
