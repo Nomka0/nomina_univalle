@@ -36,10 +36,10 @@ public class ConceptoDevengo extends Entidad{
 	}
 	
 	public void calcularPrestaciones(double sumatoria_base) { //prestaciones sociales
-		cesantias = sumatoria_base * 0.0833;
-		intereses_cesantias = sumatoria_base * 0.01;
-		prima = sumatoria_base * 0.0833; 
-		vacaciones = sumatoria_base * 0.0417;
+		cesantias = sumatoria_base * 0.0833; // 8.33
+		intereses_cesantias = sumatoria_base * 0.01; // 1%
+		prima = sumatoria_base * 0.0833; // 8.33% 
+		vacaciones = sumatoria_base * 0.0417; // 4.17%
 	}
 	
 
@@ -75,6 +75,60 @@ public class ConceptoDevengo extends Entidad{
 	public void setHaceBase(boolean hace_base) {
 		this.hace_base = hace_base;
 	}
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public float getValor_devengo() {
+		return valor_devengo;
+	}
+
+	public void setValor_devengo(float valor_devengo) {
+		this.valor_devengo = valor_devengo;
+	}
+
+	public boolean isHace_base() {
+		return hace_base;
+	}
+
+	public void setHace_base(boolean hace_base) {
+		this.hace_base = hace_base;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public void setCesantias(double cesantias) {
+		this.cesantias = cesantias;
+	}
+
+	public void setIntereses_cesantias(double intereses_cesantias) {
+		this.intereses_cesantias = intereses_cesantias;
+	}
+
+	public void setPrima(double prima) {
+		this.prima = prima;
+	}
+
+	public void setVacaciones(double vacaciones) {
+		this.vacaciones = vacaciones;
+	}
+	
+	
 	
 	//cada dao tendra 2 de estos (ya que son reportes semanales y la liquidación de nomina es quincenal)
 	

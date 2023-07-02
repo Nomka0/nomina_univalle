@@ -24,7 +24,9 @@ public class Main {
 		ConceptoDevengoControlador controlador_devengo = new ConceptoDevengoControlador();
 		controlador_devengo.leerSubArchivos();
 		
-		
+		//testeando crear archivo para devengos...
+
+		//controlador_devengo.crearArchivosCSV();
 		/*
 		
 		//debug para ver si se registarion bn
