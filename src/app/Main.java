@@ -4,6 +4,7 @@ import modelo.ConceptoDevengo;
 import dao.ConceptoDevengoDAO;
 import dao.EmpleadoDAO;
 import controlador.ConceptoDevengoControlador;
+import controlador.DeduccionControlador;
 import controlador.EmpleadoControlador;
 
 //testeando para archivos de corte de caña...
@@ -24,7 +25,7 @@ public class Main {
 		controlador_devengo.crearArchivosCSV();
 		*/
 		
-
+/*
 		//debug para empleados
 		//testeando...
 		EmpleadoControlador controlador_empleados = new EmpleadoControlador();
@@ -32,7 +33,17 @@ public class Main {
 		EmpleadoDAO dao_empleados = controlador_empleados.getDAO();
 		controlador_empleados.crearEmpleado(12344, "estoy mamado", "lol", "calle", 1255, 546, "20230420", "Sí", "Socio", "Fijo", 2345363);
 		System.out.println(dao_empleados.obtener(0).getNombre());
-			
+	*/	
+		
+		
+		//test deducciones
+		
+		DeduccionControlador deduccion_controlador = new DeduccionControlador();
+		deduccion_controlador.leerSubArchivos();
+		deduccion_controlador.crearDeduccionesAuto();
+		deduccion_controlador.crearArchivosCSV();
+		
+	
 	}
 
 
