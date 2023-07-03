@@ -1,0 +1,10 @@
+//ejemplo método sumatoria
+	public float sumatoria(ConceptoDevengoDAO sacarDevengos) {
+		float sumatoria_devengos = 0;
+		List<ConceptoDevengo> devengo_analizar = sacarDevengos.obtenerTodos();
+		for(ConceptoDevengo devengos_analizar : devengo_analizar) {
+			float devengo_sumar = devengos_analizar.getValorDevengo();
+			sumatoria_devengos += devengo_sumar;
+		}
+		return sumatoria_devengos;
+	}

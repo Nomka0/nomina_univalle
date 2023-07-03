@@ -113,6 +113,7 @@ public class ConfigEmpresa {
 	}
 	
 }
+
 /*
 NIT
 • Razón social o Nombre
