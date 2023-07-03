@@ -16,7 +16,7 @@ public class Empleado {
 	Date fecha_retiro;
 	String tipo_trabajador; 
 	String tipo_salario; //true: acumulado; false: fijo
-	String activo;
+	boolean activo;
 	long cuenta_bancaria;
 	SimpleDateFormat sdf;
 	
@@ -29,7 +29,12 @@ public class Empleado {
 		this.direccion = direccion;
 		this.eps = eps;
 		this.fpp = fpp;
-		this.activo = activo;
+		
+		if(activo == "Sí") {
+			this.activo = true;
+		}
+		else this.activo = false; 
+		
 		
         sdf = new SimpleDateFormat("yyyyMMdd");
 		try {
@@ -54,6 +59,14 @@ public class Empleado {
 		this.id = id;
 	}
 
+
+	public boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
 
 	public String getNombre() {
 		return nombre;

@@ -1,14 +1,21 @@
-package controlador;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 import dao.ConceptoDeduccionDAO;
 import modelo.ConceptoDeduccion;
+
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Date;
+import java.util.HashMap;
 
 public class ConceptoDeduccionControlador {
     private String carpeta;
@@ -30,11 +37,9 @@ public class ConceptoDeduccionControlador {
 
     public void listarArchivos(int id_empleado) {
         File directorio = new File(carpeta + id_empleado + "/deducciones");
-
         if (directorio.isDirectory()) {
             archivos = directorio.listFiles();
             reverseFileArray(archivos);
-
             if (archivos != null) {
                 for (File archivo : archivos) {
                     System.out.println("Nombre del archivo: " + archivo.getName());
@@ -47,38 +52,14 @@ public class ConceptoDeduccionControlador {
         }
     }
 
-    public int[] getEmpleadosDir() {
-        File directorio = new File(carpeta);
-        File[] archivos = directorio.listFiles();
-
-        if (directorio.isDirectory()) {
-            Arrays.sort(archivos, (a, b) -> b.getName().compareTo(a.getName()));
-
-            int[] nombres_subdirectorios = new int[archivos.length];
-            for (int i = 0; i < archivos.length; i++) {
-                if (archivos[i].isDirectory()) {
-                    try {
-                        nombres_subdirectorios[i] = Integer.parseInt(archivos[i].getName());
-                        System.out.println("Directorio: " + nombres_subdirectorios[i]);
-                    } catch (NumberFormatException e) {
-                        System.out.println("El nombre del subdirectorio no es un número válido.");
-                    }
-                }
-            }
-            return nombres_subdirectorios;
-        } else {
-            System.out.println("La ruta no corresponde a un directorio válido.");
-            return new int[0];
-        }
-    }
-
     public void leerSubArchivos() {
         int[] directorios_empleados = getEmpleadosDir();
 
         for (int directorio : directorios_empleados) {
             empleadosDAOS.put(directorio, leerArchivo(directorio));
         }
-        System.out.println(empleadosDAOS);
+
+        System.out.println("Empleados y deducciones: " + empleadosDAOS);
     }
 
     public ConceptoDeduccionDAO leerArchivo(int id_empleado) {
@@ -87,6 +68,7 @@ public class ConceptoDeduccionControlador {
 
         for (File ruta_archivo : archivos) {
             boolean primeraLinea = true;
+
             try {
                 Scanner scanner = new Scanner(ruta_archivo);
 
@@ -99,12 +81,13 @@ public class ConceptoDeduccionControlador {
                     }
 
                     String[] campos = linea.split(",");
-                    int ficha = Integer.parseInt(campos[0]);
-                    String fecha = campos[1];
-                    String concepto = campos[2];
-                    float monto = Float.parseFloat(campos[3]);
 
-                    ConceptoDeduccion deduccion = new ConceptoDeduccion(ficha, concepto, fecha, monto);
+                    int ficha = Integer.parseInt(campos[0]);
+                    String fechaCorte = campos[1];
+                    String tipoDeduccion = campos[2];
+                    float valorDeduccion = Float.parseFloat(campos[3]);
+
+                    ConceptoDeduccion deduccion = new ConceptoDeduccion(ficha, fechaCorte, tipoDeduccion, valorDeduccion);
                     nuevo_deduccion.crear(deduccion);
                 }
 
@@ -113,20 +96,100 @@ public class ConceptoDeduccionControlador {
                 e.printStackTrace();
             }
         }
+
         return nuevo_deduccion;
     }
 
-    public static void reverseFileArray(File[] arr) {
-        int start = 0;
-        int end = arr.length - 1;
+    public int[] getEmpleadosDir() {
+        File directorio = new File(carpeta);
+        File[] archivos = directorio.listFiles();
 
-        while (start < end) {
-            File temp = arr[start];
-            arr[start] = arr[end];
-            arr[end] = temp;
-
-            start++;
-            end--;
+        if (directorio.isDirectory()) {
+            Arrays.asList(archivos).sort((a, b) -> b.getName().compareTo(a.getName()));
+            int[] directorios_empleados = new int[archivos.length];
+            int index = 0;
+            for (File archivo : archivos) {
+                if (archivo.isDirectory()) {
+                    directorios_empleados[index] = Integer.parseInt(archivo.getName());
+                    index++;
+                }
+            }
+            return directorios_empleados;
+        } else {
+            System.out.println("La ruta especificada no es una carpeta válida.");
+            return new int[0];
         }
+    }
+
+    public void reverseFileArray(File[] files) {
+        int left = 0;
+        int right = files.length - 1;
+
+        while (left < right) {
+            File temp = files[left];
+            files[left] = files[right];
+            files[right] = temp;
+            left++;
+            right--;
+        }
+    }
+
+    public void crearArchivosCSV() {
+    for (Map.Entry<Integer, ConceptoDeduccionDAO> entry : empleadosDAOS.entrySet()) {
+        int id_empleado = entry.getKey();
+        ConceptoDeduccionDAO dao = entry.getValue();
+        List<ConceptoDeduccion> deducciones = dao.obtenerTodos();
+
+        String nombreArchivo = carpeta + id_empleado + "/deducciones.csv";
+        try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
+            // Escribir encabezados en el archivo CSV
+            writer.println("Ficha,FechaCorte,TipoDeduccion,ValorDeduccion");
+
+            // Escribir los datos de deducciones en el archivo CSV
+            for (ConceptoDeduccion deduccion : deducciones) {
+                writer.println(deduccion.getFicha() + "," + deduccion.getFechaCorte() + "," + deduccion.getTipoDeduccion() + "," + deduccion.getValorDeduccion());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    }
+
+    public void crearDeduccion(int id_empleado, int ficha, String fechaCorte, String tipoDeduccion, float sumatoriaDevengos, float salarioMinimo) {
+        ConceptoDeduccionDAO deduccionDAO = seleccionarDAO(id_empleado);
+        double valorDeduccion;
+
+        if (sumatoriaDevengos > salarioMinimo) {
+            double porcentajeDeduccion = 0.04; // 4% para salud y fondo de pensión
+            valorDeduccion = sumatoriaDevengos * porcentajeDeduccion;
+        } else {
+            valorDeduccion = 10000; // Valor de la deducción basado en el salario mínimo vigente
+        }
+
+        ConceptoDeduccion deduccion = new ConceptoDeduccion(ficha, fechaCorte, tipoDeduccion, valorDeduccion);
+        deduccionDAO.crear(deduccion);
+        crearArchivo(id_empleado, deduccionDAO);
+    }
+
+    public void eliminarDeduccion(int id_empleado, int ficha) {
+        ConceptoDeduccionDAO deduccionDAO = seleccionarDAO(id_empleado);
+        deduccionDAO.eliminar(ficha);
+        crearArchivo(id_empleado, deduccionDAO);
+    }
+
+    public void actualizarDeduccion(int id_empleado, int ficha, String fechaCorte, String tipoDeduccion, float sumatoriaDevengos, float salarioMinimo) {
+        ConceptoDeduccionDAO deduccionDAO = seleccionarDAO(id_empleado);
+        double valorDeduccion;
+
+        if (sumatoriaDevengos > salarioMinimo) {
+            double porcentajeDeduccion = 0.04; // 4% para salud y fondo de pensión
+            valorDeduccion = sumatoriaDevengos * porcentajeDeduccion;
+        } else {
+            valorDeduccion = 10000; // Valor de la deducción basado en el salario mínimo vigente
+        }
+
+        ConceptoDeduccion deduccion = new ConceptoDeduccion(ficha, fechaCorte, tipoDeduccion, valorDeduccion);
+        deduccionDAO.actualizar(ficha, deduccion);
+        crearArchivo(id_empleado, deduccionDAO);
     }
 }

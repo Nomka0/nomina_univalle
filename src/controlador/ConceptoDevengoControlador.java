@@ -2,6 +2,11 @@ package controlador;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,6 +16,8 @@ import modelo.ConceptoDevengo;
 import modelo.TarifaCana;
 
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -19,8 +26,8 @@ public class ConceptoDevengoControlador {
 	//private List<ConceptoDevengo> devengos;
 	private String carpeta;
 	private File[] archivos = {};
-    private Map<Integer, ConceptoDevengoDAO> empleadosDAOS;
-    		
+	private Map<Integer, ConceptoDevengoDAO> empleadosDAOS;
+
 	public ConceptoDevengoControlador() {
 		//devengosDAO = new ConceptoDevengoDAO(); //DEPRECATED
 		//devengos = devengosDAO.obtenerTodos();  //DEPRECATED
@@ -32,13 +39,13 @@ public class ConceptoDevengoControlador {
 	public Map<Integer, ConceptoDevengoDAO> getMapDevengosDAO() {
 		return empleadosDAOS; 
 	}
-	
+
 	public ConceptoDevengoDAO seleccionarDAO(int ID) {//Selecciona un DAO del map según su id
 		return empleadosDAOS.get(ID);
 	}
 
 	public void listarArchivos(int id_empleado) {
-		File directorio = new File(carpeta + id_empleado + "/devengos");
+		File directorio = new File(carpeta + id_empleado + "/cortes_semanales");
 		//System.out.println("Nombre de carpeta: " + directorio);
 		if (directorio.isDirectory()) {
 			// Obtener la lista de archivos en la carpeta
@@ -65,60 +72,64 @@ public class ConceptoDevengoControlador {
 		Date ultima_fecha = ultimo.getFecha();
 		Date primera_fecha = primero.getFecha();
 
-	    int mes_primero = primera_fecha.getMonth() + 1;
-	    int mes_ultimo = ultima_fecha.getMonth() + 1;
+		int mes_primero = primera_fecha.getMonth() + 1;
+		int mes_ultimo = ultima_fecha.getMonth() + 1;
 
-	    int ano_primero = primera_fecha.getYear() + 1900;//esa librería está komo deprecated
-	    //y tiene ciertas cosas raras, como que eñ año comienza desde 1900, entonces x eso se le suma 1900
-	    int ano_ultimo = ultima_fecha.getYear() + 1900;
+		int ano_primero = primera_fecha.getYear() + 1900;//esa librería está komo deprecated
+		//y tiene ciertas cosas raras, como que eñ año comienza desde 1900, entonces x eso se le suma 1900
+		int ano_ultimo = ultima_fecha.getYear() + 1900;
 
-	    int cuantos_meses = (ano_ultimo - ano_primero) * 12 + (mes_ultimo - mes_primero);
+		int cuantos_meses = (ano_ultimo - ano_primero) * 12 + (mes_ultimo - mes_primero);
 
-	    System.out.println("Han pasado " + cuantos_meses + " meses.");
-	    return cuantos_meses;
+		System.out.println("Han pasado " + cuantos_meses + " meses.");
+		return cuantos_meses;
 	}
 
 	public int[] getEmpleadosDir() {
-	    File directorio = new File(carpeta);
-	    File[] archivos = directorio.listFiles();
+		File directorio = new File(carpeta);
+		File[] archivos = directorio.listFiles();
 
-	    // Verificar si la ruta corresponde a un directorio válido
-	    if (directorio.isDirectory()) {
-	        // Invertir el orden del arreglo de archivos (opcional)
-	        Arrays.asList(archivos).sort((a, b) -> b.getName().compareTo(a.getName()));
+		// Verificar si la ruta corresponde a un directorio válido
+		if (directorio.isDirectory()) {
+			// Invertir el orden del arreglo de archivos (opcional)
+			Arrays.asList(archivos).sort((a, b) -> b.getName().compareTo(a.getName()));
 
-	        int[] nombres_subdirectorios = new int[archivos.length];
-	        for (int i = 0; i < archivos.length; i++) {
-	            if (archivos[i].isDirectory()) {
-	                try {
-	                    nombres_subdirectorios[i] = Integer.parseInt(archivos[i].getName());
-	                    System.out.println("Directorio: " + nombres_subdirectorios[i]);
-	                } catch (NumberFormatException e) {
-	                    // Manejo de excepción si el nombre del subdirectorio no es un número válido
-	                    System.out.println("El nombre del subdirectorio no es un número válido.");
-	                }
-	            }
-	        }
-	        return nombres_subdirectorios;
-	    } else {
-	        System.out.println("La ruta no corresponde a un directorio válido.");
-	        return new int[0]; // Retorna un arreglo vacío en caso de que no sea un directorio válido
-	    }
+			int[] nombres_subdirectorios = new int[archivos.length];
+			for (int i = 0; i < archivos.length; i++) {
+				if (archivos[i].isDirectory()) {
+					try {
+						nombres_subdirectorios[i] = Integer.parseInt(archivos[i].getName());
+						System.out.println("Directorio: " + nombres_subdirectorios[i]);
+					} catch (NumberFormatException e) {
+						// Manejo de excepción si el nombre del subdirectorio no es un número válido
+						System.out.println("El nombre del subdirectorio no es un número válido.");
+					}
+				}
+			}
+			return nombres_subdirectorios;
+		} else {
+			System.out.println("La ruta no corresponde a un directorio válido.");
+			return new int[0]; // Retorna un arreglo vacío en caso de que no sea un directorio válido
+		}
 	}
 
 
 	//un leerArchivo pero para todos los empleados
 	public void leerSubArchivos() { //Toma toooodos los empleados que listó getEmpleadosDir() y lee sus archivos con el método de leerArchivo
 		int[] directorios_empleados = getEmpleadosDir();
-		
+
 		for (int directorio : directorios_empleados) {
 			empleadosDAOS.put(directorio, leerArchivo(directorio)); //pone en el map la clave (que sería el nombre de la carpeta, la cual es el id de
 			//empleado) y el dao de devengo retornado por leerArchivo.
-			System.out.println(mesesTranscurridos(directorio));// ver si retrona correctamente la fecha
+			int meses = mesesTranscurridos(directorio);// ver si retrona correctamente la fecha
+			prestacioneSociales(directorio, meses);
+			ConceptoDevengoDAO dao_test = empleadosDAOS.get(directorio);
+			ConceptoDevengo ultimo_dao = dao_test.obtener(dao_test.obtenerTodos().size()-1);
+			String tipo_devengo = ultimo_dao.getNombre();
+			System.out.println("Total de devengos: " + dao_test.obtenerTodos());
+			System.out.println("Ultimo devengo: " + tipo_devengo);
 		}
-		System.out.println(empleadosDAOS);
-		//TO-DO//
-		
+		System.out.println("Empleados y devengos: " + empleadosDAOS);
 	}
 
 	public ConceptoDevengoDAO leerArchivo(int id_empleado) {
@@ -126,7 +137,7 @@ public class ConceptoDevengoControlador {
 		int quincena_counter = 0; //cuando llegue a 12, significa que habrán pasado 2 semanas, entonces reinicia, para dar el valor de la siguiente quincena
 		float quincena_total = 0; //el acumulado de todo lo que se cortó en la quincena
 		ConceptoDevengoDAO nuevo_devengo = new ConceptoDevengoDAO(); // la idea de esto es para que cada empleado tengo su propio dao
-		
+
 		for (File ruta_archivo : archivos) {
 			boolean primeraLinea = true; // Para indicar si es la primera línea del archivo
 			try {
@@ -160,10 +171,14 @@ public class ConceptoDevengoControlador {
 
 					quincena_counter++;
 
+
+
 					if(quincena_counter == 12) {//
-						ConceptoDevengo tarifa_individual= new ConceptoDevengo(ficha,"QUINCENA CORTE DE CAÑA" , fechaCorte, quincena_total);
+						ConceptoDevengo tarifa_individual= new ConceptoDevengo(ficha, fechaCorte, quincena_total);
 						nuevo_devengo.crear(tarifa_individual);
 						quincena_counter = 0;
+						System.out.println(id_empleado);
+
 					}
 
 				}
@@ -174,6 +189,80 @@ public class ConceptoDevengoControlador {
 			}	
 		}
 		return nuevo_devengo;
+	}
+	
+	public void retiroCompania(int id_empleado) {
+		
+	}
+
+	public void prestacioneSociales(int id_empleado, int meses_transcurridos) {
+		if (meses_transcurridos >= 6) {
+			int semestres = (int) Math.floor(meses_transcurridos/6);
+
+			ConceptoDevengoDAO devengos_empleado = seleccionarDAO(id_empleado);//sirve
+			double sumatoria_devengos_base = sumatoria(devengos_empleado)/semestres;//sirve
+
+			Calendar calendar = Calendar.getInstance();
+			ConceptoDevengo ultimo_concepto = devengos_empleado.obtener(devengos_empleado.obtenerTodos().size()-1);
+			Date fecha_ultimo_concepto = ultimo_concepto.getFecha();
+			
+	        calendar.setTime(fecha_ultimo_concepto);
+	        SimpleDateFormat formatoDeseado = new SimpleDateFormat("yyyyMMdd");
+			calendar.setTime(fecha_ultimo_concepto);
+			//System.out.println(fecha_ultimo_concepto);
+			calendar.add(Calendar.MONTH, - 6*semestres);
+			fecha_ultimo_concepto = calendar.getTime();
+			
+			
+			for(int i = 0; i < semestres; i++) {
+            	String fechaFormateada = formatoDeseado.format(fecha_ultimo_concepto);
+            	System.out.println(fechaFormateada);
+				ConceptoDevengo prestaciones_sociales = new ConceptoDevengo(id_empleado,"PRESTACIONES SOCIALES", fechaFormateada, sumatoria_devengos_base);
+				devengos_empleado.crear(prestaciones_sociales);
+				calendar.setTime(fecha_ultimo_concepto);
+				calendar.add(Calendar.MONTH, + 6);
+				fecha_ultimo_concepto = calendar.getTime();
+			}
+		}
+	}
+
+	//ejemplo método sumatoria
+	public double sumatoria(ConceptoDevengoDAO sacarDevengos) {
+		float sumatoria_devengos = 0;
+		List<ConceptoDevengo> devengo_analizar = sacarDevengos.obtenerTodos();
+		for(ConceptoDevengo devengos_analizar : devengo_analizar) {
+			double devengo_sumar = devengos_analizar.getValorDevengo();
+			sumatoria_devengos += devengo_sumar;
+		}
+		return sumatoria_devengos;
+	}
+
+	public void crearArchivosCSV() {
+	    for (Map.Entry<Integer, ConceptoDevengoDAO> entry : empleadosDAOS.entrySet()) {
+	        int id_empleado = entry.getKey();
+	        ConceptoDevengoDAO dao = entry.getValue();
+	        List<ConceptoDevengo> devengos = dao.obtenerTodos();
+
+	        String nombreArchivo = carpeta + id_empleado + "/devengos.csv";
+	        try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
+	            // Escribir encabezados en el archivo CSV
+	            writer.println("Ficha,Concepto,Fecha,Valor(solo base),Cesantias,Intereses,Primas,Vacaciones");
+
+	            // Escribir los datos de devengos en el archivo CSV
+	            for (ConceptoDevengo devengo : devengos) {
+	            	SimpleDateFormat formatoDeseado = new SimpleDateFormat("yyyyMMdd");
+	            	String fechaFormateada = formatoDeseado.format(devengo.getFecha());
+	            	String cesantias = Double.toString(devengo.getCesantias());
+	            	String intereses = Double.toString(devengo.getIntereses_cesantias());
+	            	String prima = Double.toString(devengo.getPrima());
+	            	String vacaciones = Double.toString(devengo.getVacaciones());
+	                writer.println(devengo.getCodigo() + "," + devengo.getNombre() + "," + fechaFormateada + "," + devengo.getValorDevengo() + "," + cesantias + "," + intereses + "," + prima + "," + vacaciones);
+	            
+	            }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
 	}
 
 	public static void reverseFileArray(File[] arr) {

@@ -23,6 +23,7 @@ public class Main {
 		//testeando para archivo de corte de caña...
 		ConceptoDevengoControlador controlador_devengo = new ConceptoDevengoControlador();
 		controlador_devengo.leerSubArchivos();
+		controlador_devengo.crearArchivosCSV();
 		
 		/*
 		
