@@ -1,22 +1,33 @@
 package controlador;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import modelo.ConceptoDevengo;
 import modelo.Empleado;
 import modelo.TarifaCana;
+import dao.ConceptoDevengoDAO;
 import dao.EmpleadoDAO;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 
 public class EmpleadoControlador {
 
 	private EmpleadoDAO empleadosDAO;
 	private String lista_trabajadores;
+	private ConceptoDevengoControlador controlador_devengo;
+	//private Map<Integer, EmpleadoDAO> empleadosDAOs;
 
 	public EmpleadoControlador() {
 		empleadosDAO = new EmpleadoDAO();
+		//empleadosDAOs = new HashMap<>();
 		lista_trabajadores = "CSVs/Trabajadores.csv";
 	}
 	
@@ -24,8 +35,44 @@ public class EmpleadoControlador {
 		return empleadosDAO; 
 	}
 	
+	/*
+	public Map<Integer, EmpleadoDAO> getMapEmpleadosDAO() {
+		return empleadosDAOs; 
+	}
+	*/
+	
+	/*
+	public EmpleadoDAO seleccionarDAO(int ID) {//Selecciona un DAO del map según su id
+		return empleadosDAOs.get(ID);
+	}
+	*/
+	
+	public void retiroCompania(int index) {// este index corresponderá con el de la tabla de la vista
+	//así será fácil navegar en el dao, respectivamente con la tabla de la vista
+		Empleado empleado = empleadosDAO.obtener(index);
+		if(empleado.getActivo()) { // si está activo
+			empleado.setActivo(false);
+		} else System.out.println("El usuario ya está retirado"); // lo puedes reemplazar con
+		//un mensaje de error en pantalla de la vista
+		
+	}
+	
+	public void crearEmpleado (int id, String nombre, String apellido, String direccion, int eps, int fpp,
+			String fecha_ingreso, String activo, String tipo_trabajador,
+			String tipo_salario, long cuenta_bancaria) {
+		
+		Empleado empleado = new Empleado(id, nombre, apellido, direccion, eps, fpp,
+			 fecha_ingreso, activo, tipo_trabajador,
+			 tipo_salario, cuenta_bancaria);
+		leerArchivo();
+		empleadosDAO.crear(empleado);
+		verificarCarpetas();
+		crearArchivoCSV();
+	}
+	
 	public void crearCarpeta(int id_empleado) {
-		String ruta_carpeta = "CSVs/empleados/" + id_empleado + "devengos";
+		String ruta_carpeta = "CSVs/empleados/" + id_empleado + "/cortes_semanales";
+		
 		File carpeta = new File(ruta_carpeta);
 		
         // Verificamos si la carpeta ya existe
@@ -51,6 +98,42 @@ public class EmpleadoControlador {
 		}
 	}
 	 
+	public void crearArchivoCSV() {
+		List<Empleado> dao = empleadosDAO.obtenerTodos();
+	        String nombreArchivo = lista_trabajadores;
+	        try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
+	            // Escribir encabezados en el archivo CSV
+	            writer.println("ID,Nombre,Apellido,Dirección,EPS,FPP,Fecha de ingreso,Activo,Tipo de trabajador,Tipo de Salario,Cuenta bancaria");
+	            
+	            // Escribir los datos de devengos en el archivo CSV
+	            for (Empleado empleado : dao) {
+	            	int id = empleado.getId();
+	            	String nombre = empleado.getNombre();
+	            	String apellido = empleado.getApellido();
+	            	String direccion = empleado.getDireccion();
+	            	int eps = empleado.getEps();
+	            	int fpp = empleado.getFpp();
+	            	SimpleDateFormat formatoDeseado = new SimpleDateFormat("yyyyMMdd");
+	    			Date fecha_ingreso = empleado.getFechaIngreso();
+	       
+	            	String fechaFormateada = formatoDeseado.format(fecha_ingreso);
+	    			String activo;
+	    			if (empleado.getActivo()) {
+	    				 activo = "Sí";
+	    			} else activo = "No";
+	    			
+	    			String tipo_trabajador = empleado.getTipoTrabajador();
+	    			String tipo_salario = empleado.getTipoSalario();
+	    			long cuenta_bancaria = empleado.getCuentaBancaria();
+	            	
+	                writer.println(id + "," + nombre + "," +  apellido + "," +  direccion + "," +  eps + "," +  fpp + "," +  fechaFormateada + "," +  activo + "," +  tipo_trabajador + "," +  tipo_salario + "," +  cuenta_bancaria);
+	            
+	            }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	}
+	
 	public void leerArchivo() {
 		boolean primeraLinea = true; // Para indicar si es la primera línea del archivo
 		try {

@@ -44,6 +44,8 @@ public class ConceptoDevengoControlador {
 		return empleadosDAOS.get(ID);
 	}
 
+	
+	
 	public void listarArchivos(int id_empleado) {
 		File directorio = new File(carpeta + id_empleado + "/cortes_semanales");
 		//System.out.println("Nombre de carpeta: " + directorio);
@@ -191,9 +193,7 @@ public class ConceptoDevengoControlador {
 		return nuevo_devengo;
 	}
 	
-	public void retiroCompania(int id_empleado) {
-		
-	}
+
 
 	public void prestacioneSociales(int id_empleado, int meses_transcurridos) {
 		if (meses_transcurridos >= 6) {

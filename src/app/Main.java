@@ -14,38 +14,25 @@ import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
-		//TarifaCana tarifa = new TarifaCana(); 
-		//tarifa.getTarifa(1, 'F');
-
 		//testeando...
 		//entonces supongo que lo que podemos hacer es por cada quincena crear dos archivos
 		//aquí estoy en devengos
 		//testeando para archivo de corte de caña...
+		/*
 		ConceptoDevengoControlador controlador_devengo = new ConceptoDevengoControlador();
 		controlador_devengo.leerSubArchivos();
 		controlador_devengo.crearArchivosCSV();
+		*/
 		
-		/*
-		
-		//debug para ver si se registarion bn
-		//List<ConceptoDevengo> cortes_cana = controlador.getDevengoDAO();
-		
-		
-		int quincena = 1;
-		for (ConceptoDevengo corte_cana : cortes_cana) {
-			System.out.println("valor para la quincena " + quincena + ": " + "$" + corte_cana.getValorDevengo());
-			quincena++;
-		}
-		//controlador.listarArchivos();
-		
+
 		//debug para empleados
 		//testeando...
 		EmpleadoControlador controlador_empleados = new EmpleadoControlador();
-		controlador_empleados.leerArchivo();
+		//controlador_empleados.leerArchivo();
 		EmpleadoDAO dao_empleados = controlador_empleados.getDAO();
-		System.out.println(dao_empleados.obtener(3).getId());
+		controlador_empleados.crearEmpleado(12344, "estoy mamado", "lol", "calle", 1255, 546, "20230420", "Sí", "Socio", "Fijo", 2345363);
+		System.out.println(dao_empleados.obtener(0).getNombre());
 			
-		*/		
 	}
 
 
