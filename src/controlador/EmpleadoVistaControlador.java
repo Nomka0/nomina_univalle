@@ -3,17 +3,20 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import modelo.Empleado;
 import vista.EmpleadoVista;
 
 public class EmpleadoVistaControlador {
 	
 	private EmpleadoVista ventana;
 	private EmpleadoControlador empleado;
+	private Empleado empleadoNuevo;
 	
 	
 	public EmpleadoVistaControlador(EmpleadoVista ventana, EmpleadoControlador empleado) {
 		this.ventana = ventana;
 		this.empleado = empleado;
+		
 		
         ventana.setVisible(true);
         ventana.setLocationRelativeTo(null);
@@ -47,6 +50,21 @@ public class EmpleadoVistaControlador {
 		String tiposalario = ventana.getTipoSalario();
 		long cuenta = ventana.getCuenta();
 		
+		/*empleadoNuevo.setId(ID);
+		empleadoNuevo.setNombre(nombre);
+		empleadoNuevo.setApellido(apellido);
+		empleadoNuevo.setDireccion(direccion);
+		empleadoNuevo.setEps(eps);
+		empleadoNuevo.setFpp(fpp);
+		empleadoNuevo.setTipoTrabajador(tipotrabajador);
+		empleadoNuevo.setTipoSalario(tiposalario);
+		empleadoNuevo.setCuentaBancaria(cuenta);
+		empleadoNuevo.setActivo(false);
+		empleadoNuevo.setFechaIngreso(fechaingreso);
+		empleadoNuevo.setFechaRetiro(tiposalario);*/
+		
+		empleadoNuevo = new Empleado(ID, nombre, apellido, direccion, eps, fpp, fechaingreso, activo, tipotrabajador, tiposalario, cuenta);
+		
 		System.out.println(ID);
 		empleado.crearEmpleado(ID, nombre, apellido, direccion, eps, fpp, fechaingreso, activo, tipotrabajador, tiposalario, cuenta);
 		
@@ -57,10 +75,15 @@ public class EmpleadoVistaControlador {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equalsIgnoreCase("Listar eps")) {
-               System.out.print("listado"); 
+            	listarDatos();
+            	System.out.print("listado"); 
 
             }
             
         }
     }
+	
+	public void listarDatos() {
+	ventana.addDatosTablaEmpleados(empleadoNuevo);
+	}
 }
