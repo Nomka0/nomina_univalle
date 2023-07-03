@@ -4,39 +4,17 @@ import dao.ConceptoDevengoDAO;
 import java.util.List;
 
 public class ConceptoDeduccion extends Entidad {
-    private int codigo;
-    private String nombre;
     private int ficha;
     private String fechaCorte;
     private String tipoDeduccion;
     private double valorDeduccion;
 
-    public ConceptoDeduccion(int codigo, String nombre, int ficha, String fechaCorte, String tipoDeduccion, double valorDeduccion) {
-        super(codigo, nombre);
+    public ConceptoDeduccion(int ficha, String fechaCorte, String tipoDeduccion, double valorDeduccion) {
+        super(ficha, tipoDeduccion);
         this.ficha = ficha;
         this.fechaCorte = fechaCorte;
         this.tipoDeduccion = tipoDeduccion;
         this.valorDeduccion = valorDeduccion;
-    }
-
-    public ConceptoDeduccion() {
-        super();
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public int getFicha() {
