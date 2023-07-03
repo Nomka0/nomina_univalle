@@ -11,6 +11,20 @@ public class ARL extends Entidad{
 	public ARL() {
 		super();
 	}
+	public int getCodigo() {
+		return codigo;
+	}
 
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getNombre_arl() {
+		return nombre_arl;
+	}
+
+	public void setNombre_arl(String nombre_arl) {
+		this.nombre_arl = nombre_arl;
+	}
 }
 
