@@ -185,7 +185,7 @@ public class ConceptoDeduccionControlador {
             double porcentajeDeduccion = 0.04; // 4% para salud y fondo de pensión
             valorDeduccion = sumatoriaDevengos * porcentajeDeduccion;
         } else {
-            valorDeduccion = 10000; // Valor de la deducción basado en el salario mínimo vigente
+            valorDeduccion = 10000; // Ejemplo, puede cambiarse 
         }
 
         ConceptoDeduccion deduccion = new ConceptoDeduccion(ficha, fechaCorte, tipoDeduccion, valorDeduccion);
