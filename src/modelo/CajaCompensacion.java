@@ -26,5 +26,10 @@ public class CajaCompensacion extends Entidad{
 	public void setNombre_caja(String nombre_caja) {
 		this.nombre_caja = nombre_caja;
 	}
+	@Override
+	public String toString() {
+		return "Codigo: " + codigo + ", Nombre: " + nombre_caja ;
+	}
+}
 }
 

@@ -26,5 +26,9 @@ public class ARL extends Entidad{
 	public void setNombre_arl(String nombre_arl) {
 		this.nombre_arl = nombre_arl;
 	}
+	@Override
+	public String toString() {
+		return "Codigo: " + codigo + ", Nombre: " + nombre_arl ;
+	}
 }
 
