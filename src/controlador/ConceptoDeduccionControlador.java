@@ -1,19 +1,22 @@
+package controlador;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 import dao.ConceptoDeduccionDAO;
 import modelo.ConceptoDeduccion;
+import modelo.Empleado;
+import modelo.TarifaCana;
 
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -53,13 +56,23 @@ public class ConceptoDeduccionControlador {
     }
 
     public void leerSubArchivos() {
-        int[] directorios_empleados = getEmpleadosDir();
+    int[] directorios_empleados = getEmpleadosDir();
 
-        for (int directorio : directorios_empleados) {
-            empleadosDAOS.put(directorio, leerArchivo(directorio));
+    for (int directorio : directorios_empleados) {
+        empleadosDAOS.put(directorio, leerArchivo(directorio));
+        ConceptoDeduccionDAO dao_test = empleadosDAOS.get(directorio);
+        List<ConceptoDeduccion> deducciones = dao_test.obtenerTodos();
+        if (!deducciones.isEmpty()) {
+            ConceptoDeduccion ultima_deduccion = deducciones.get(deducciones.size() - 1);
+            String tipo_deduccion = ultima_deduccion.getTipoDeduccion();
+            System.out.println("Total de deducciones: " + deducciones);
+            System.out.println("Última deducción: " + tipo_deduccion);
+        } else {
+            System.out.println("No se encontraron deducciones para el empleado: " + directorio);
         }
+    }
 
-        System.out.println("Empleados y deducciones: " + empleadosDAOS);
+    System.out.println("Empleados y deducciones: " + empleadosDAOS);
     }
 
     public ConceptoDeduccionDAO leerArchivo(int id_empleado) {
@@ -135,35 +148,35 @@ public class ConceptoDeduccionControlador {
     }
 
     public void crearArchivosCSV() {
-    for (Map.Entry<Integer, ConceptoDeduccionDAO> entry : empleadosDAOS.entrySet()) {
-        int id_empleado = entry.getKey();
-        ConceptoDeduccionDAO dao = entry.getValue();
-        List<ConceptoDeduccion> deducciones = dao.obtenerTodos();
+        for (Map.Entry<Integer, ConceptoDeduccionDAO> entry : empleadosDAOS.entrySet()) {
+            int id_empleado = entry.getKey();
+            ConceptoDeduccionDAO dao = entry.getValue();
+            List<ConceptoDeduccion> deducciones = dao.obtenerTodos();
 
-        String nombreArchivo = carpeta + id_empleado + "/deducciones.csv";
-        try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
-            // Escribir encabezados en el archivo CSV
-            writer.println("Ficha,FechaCorte,TipoDeduccion,ValorDeduccion");
+            String nombreArchivo = carpeta + id_empleado + "/deducciones.csv";
+            try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
+                // Escribir encabezados en el archivo CSV
+                writer.println("Ficha,FechaCorte,TipoDeduccion,ValorDeduccion");
 
-            // Escribir los datos de deducciones en el archivo CSV
-            for (ConceptoDeduccion deduccion : deducciones) {
-                writer.println(deduccion.getFicha() + "," + deduccion.getFechaCorte() + "," + deduccion.getTipoDeduccion() + "," + deduccion.getValorDeduccion());
+                // Escribir los datos de deducciones en el archivo CSV
+                for (ConceptoDeduccion deduccion : deducciones) {
+                    writer.println(deduccion.getFicha() + "," + deduccion.getFechaCorte() + "," + deduccion.getTipoDeduccion() + "," + deduccion.getValorDeduccion());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-    }
     }
 
     public void crearDeduccion(int id_empleado, int ficha, String fechaCorte, String tipoDeduccion, float sumatoriaDevengos, float salarioMinimo) {
         ConceptoDeduccionDAO deduccionDAO = seleccionarDAO(id_empleado);
-        double valorDeduccion;
+        float valorDeduccion;
 
         if (sumatoriaDevengos > salarioMinimo) {
-            double porcentajeDeduccion = 0.04; // 4% para salud y fondo de pensión
+            float porcentajeDeduccion = 0.04f; // 4% para salud y fondo de pensión
             valorDeduccion = sumatoriaDevengos * porcentajeDeduccion;
         } else {
-            valorDeduccion = 10000; // Valor de la deducción basado en el salario mínimo vigente
+            valorDeduccion = 10000.0f; // Valor de la deducción basado en el salario mínimo vigente
         }
 
         ConceptoDeduccion deduccion = new ConceptoDeduccion(ficha, fechaCorte, tipoDeduccion, valorDeduccion);
@@ -179,17 +192,39 @@ public class ConceptoDeduccionControlador {
 
     public void actualizarDeduccion(int id_empleado, int ficha, String fechaCorte, String tipoDeduccion, float sumatoriaDevengos, float salarioMinimo) {
         ConceptoDeduccionDAO deduccionDAO = seleccionarDAO(id_empleado);
-        double valorDeduccion;
+        float valorDeduccion;
 
         if (sumatoriaDevengos > salarioMinimo) {
-            double porcentajeDeduccion = 0.04; // 4% para salud y fondo de pensión
+            float porcentajeDeduccion = 0.04f; // 4% para salud y fondo de pensión
             valorDeduccion = sumatoriaDevengos * porcentajeDeduccion;
         } else {
-            valorDeduccion = 10000; // Ejemplo, puede cambiarse 
+            valorDeduccion = 10000.0f; // Valor de la deducción basado en el salario mínimo vigente
         }
 
         ConceptoDeduccion deduccion = new ConceptoDeduccion(ficha, fechaCorte, tipoDeduccion, valorDeduccion);
         deduccionDAO.actualizar(ficha, deduccion);
         crearArchivo(id_empleado, deduccionDAO);
+    }
+
+    public void crearArchivo(int id_empleado, ConceptoDeduccionDAO deduccionDAO) {
+        String carpetaEmpleado = carpeta + id_empleado;
+        File directorio = new File(carpetaEmpleado);
+        if (!directorio.exists()) {
+            directorio.mkdir();
+        }
+
+        String nombreArchivo = carpetaEmpleado + "/deducciones.csv";
+        try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo))) {
+            // Escribir encabezados en el archivo CSV
+            writer.println("Ficha,FechaCorte,TipoDeduccion,ValorDeduccion");
+
+            // Escribir los datos de deducciones en el archivo CSV
+            List<ConceptoDeduccion> deducciones = deduccionDAO.obtenerTodos();
+            for (ConceptoDeduccion deduccion : deducciones) {
+                writer.println(deduccion.getFicha() + "," + deduccion.getFechaCorte() + "," + deduccion.getTipoDeduccion() + "," + deduccion.getValorDeduccion());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
