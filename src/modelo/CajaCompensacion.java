@@ -31,5 +31,5 @@ public class CajaCompensacion extends Entidad{
 		return "Codigo: " + codigo + ", Nombre: " + nombre_caja ;
 	}
 }
-}
+
 
