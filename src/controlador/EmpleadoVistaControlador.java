@@ -11,12 +11,13 @@ public class EmpleadoVistaControlador {
 	private EmpleadoVista ventana;
 	private EmpleadoControlador empleado;
 	private Empleado empleadoNuevo;
+	private int contadorDatos;
 	
 	
 	public EmpleadoVistaControlador(EmpleadoVista ventana, EmpleadoControlador empleado) {
 		this.ventana = ventana;
 		this.empleado = empleado;
-		
+		contadorDatos = 0;
 		
         ventana.setVisible(true);
         ventana.setLocationRelativeTo(null);
@@ -50,6 +51,10 @@ public class EmpleadoVistaControlador {
 		String tiposalario = ventana.getTipoSalario();
 		long cuenta = ventana.getCuenta();
 		
+		empleadoNuevo = new Empleado(ID, nombre, apellido, direccion, eps, fpp, fechaingreso, activo, tipotrabajador, tiposalario, cuenta);
+		
+		System.out.print(empleadoNuevo.getId()); 
+		
 		/*empleadoNuevo.setId(ID);
 		empleadoNuevo.setNombre(nombre);
 		empleadoNuevo.setApellido(apellido);
@@ -63,7 +68,7 @@ public class EmpleadoVistaControlador {
 		empleadoNuevo.setFechaIngreso(fechaingreso);
 		empleadoNuevo.setFechaRetiro(tiposalario);*/
 		
-		empleadoNuevo = new Empleado(ID, nombre, apellido, direccion, eps, fpp, fechaingreso, activo, tipotrabajador, tiposalario, cuenta);
+		ventana.addDatosTablaEmpleados(empleadoNuevo);
 		
 		System.out.println(ID);
 		empleado.crearEmpleado(ID, nombre, apellido, direccion, eps, fpp, fechaingreso, activo, tipotrabajador, tiposalario, cuenta);
@@ -75,8 +80,7 @@ public class EmpleadoVistaControlador {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equalsIgnoreCase("Listar eps")) {
-            	listarDatos();
-            	System.out.print("listado"); 
+            	System.out.print(empleadoNuevo.getNombre()); 
 
             }
             
@@ -84,6 +88,8 @@ public class EmpleadoVistaControlador {
     }
 	
 	public void listarDatos() {
-	ventana.addDatosTablaEmpleados(empleadoNuevo);
+		
+		
+		
 	}
 }

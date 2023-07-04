@@ -19,7 +19,7 @@ public class Main {
 	public static void main(String[] args) {
 		//testeando...
 		//entonces supongo que lo que podemos hacer es por cada quincena crear dos archivos
-		//aquí estoy en devengos
+		//aquí estoy en la branch de gestion_Archivos
 		//testeando para archivo de corte de caña...
 		/*
 		ConceptoDevengoControlador controlador_devengo = new ConceptoDevengoControlador();
@@ -49,7 +49,7 @@ public class Main {
 		EmpleadoVista ventana = new EmpleadoVista();
 		
 		EmpleadoVistaControlador controlador = new EmpleadoVistaControlador(ventana,empleado);
-	
+
 	}
 
 
