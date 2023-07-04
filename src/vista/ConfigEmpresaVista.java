@@ -1,7 +1,6 @@
-package vista;
-
 import java.awt.EventQueue;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -10,134 +9,131 @@ import javax.swing.border.EmptyBorder;
 
 public class ConfigEmpresaVista extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField txtNIT;
-	private JTextField txtNombre;
-	private JTextField txtTelefono;
-	private JTextField txtDireccion;
-	private JTextField txtRepresentanteLegal;
-	private JTextField txtCorreoContacto;
-	private JTextField txtArl;
-	private JTextField txtCajaCompensacion;
-	private JTextField txtSalarioMinimo;
-	private JTextField txtAuxilioTransporte;
+    private JPanel contentPane;
+    private JTextField txtNIT;
+    private JTextField txtNombre;
+    private JTextField txtTelefono;
+    private JTextField txtDireccion;
+    private JTextField txtRepresentanteLegal;
+    private JTextField txtCorreoContacto;
+    private JTextField txtArl;
+    private JTextField txtCajaCompensacion;
+    private JTextField txtSalarioMinimo;
+    private JTextField txtAuxilioTransporte;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ConfigEmpresaVista frame = new ConfigEmpresaVista();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    ConfigEmpresaVista frame = new ConfigEmpresaVista();
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 
-	/**
-	 * Create the frame.
-	 */
-	public ConfigEmpresaVista() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 600);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+    public ConfigEmpresaVista() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 450, 600);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
 
-		JLabel lblNIT = new JLabel("NIT:");
-		lblNIT.setBounds(10, 10, 100, 20);
-		contentPane.add(lblNIT);
+        JLabel lblNIT = new JLabel("NIT:");
+        lblNIT.setBounds(10, 10, 100, 20);
+        contentPane.add(lblNIT);
 
-		txtNIT = new JTextField();
-		txtNIT.setBounds(120, 10, 200, 20);
-		contentPane.add(txtNIT);
-		txtNIT.setColumns(10);
+        txtNIT = new JTextField();
+        txtNIT.setBounds(120, 10, 200, 20);
+        contentPane.add(txtNIT);
+        txtNIT.setColumns(10);
 
-		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(10, 40, 100, 20);
-		contentPane.add(lblNombre);
+        JLabel lblNombre = new JLabel("Nombre:");
+        lblNombre.setBounds(10, 40, 100, 20);
+        contentPane.add(lblNombre);
 
-		txtNombre = new JTextField();
-		txtNombre.setBounds(120, 40, 200, 20);
-		contentPane.add(txtNombre);
-		txtNombre.setColumns(10);
+        txtNombre = new JTextField();
+        txtNombre.setBounds(120, 40, 200, 20);
+        contentPane.add(txtNombre);
+        txtNombre.setColumns(10);
 
-		JLabel lblTelefono = new JLabel("Teléfono:");
-		lblTelefono.setBounds(10, 70, 100, 20);
-		contentPane.add(lblTelefono);
+        JLabel lblTelefono = new JLabel("Teléfono:");
+        lblTelefono.setBounds(10, 70, 100, 20);
+        contentPane.add(lblTelefono);
 
-		txtTelefono = new JTextField();
-		txtTelefono.setBounds(120, 70, 200, 20);
-		contentPane.add(txtTelefono);
-		txtTelefono.setColumns(10);
+        txtTelefono = new JTextField();
+        txtTelefono.setBounds(120, 70, 200, 20);
+        contentPane.add(txtTelefono);
+        txtTelefono.setColumns(10);
 
-		JLabel lblDireccion = new JLabel("Dirección:");
-		lblDireccion.setBounds(10, 100, 100, 20);
-		contentPane.add(lblDireccion);
+        JLabel lblDireccion = new JLabel("Dirección:");
+        lblDireccion.setBounds(10, 100, 100, 20);
+        contentPane.add(lblDireccion);
 
-		txtDireccion = new JTextField();
-		txtDireccion.setBounds(120, 100, 200, 20);
-		contentPane.add(txtDireccion);
-		txtDireccion.setColumns(10);
+        txtDireccion = new JTextField();
+        txtDireccion.setBounds(120, 100, 200, 20);
+        contentPane.add(txtDireccion);
+        txtDireccion.setColumns(10);
 
-		JLabel lblRepresentanteLegal = new JLabel("Representante Legal:");
-		lblRepresentanteLegal.setBounds(10, 130, 150, 20);
-		contentPane.add(lblRepresentanteLegal);
+        JLabel lblRepresentanteLegal = new JLabel("Representante Legal:");
+        lblRepresentanteLegal.setBounds(10, 130, 150, 20);
+        contentPane.add(lblRepresentanteLegal);
 
-		txtRepresentanteLegal = new JTextField();
-		txtRepresentanteLegal.setBounds(170, 130, 150, 20);
-		contentPane.add(txtRepresentanteLegal);
-		txtRepresentanteLegal.setColumns(10);
+        txtRepresentanteLegal = new JTextField();
+        txtRepresentanteLegal.setBounds(170, 130, 150, 20);
+        contentPane.add(txtRepresentanteLegal);
+        txtRepresentanteLegal.setColumns(10);
 
-		JLabel lblCorreoContacto = new JLabel("Correo de Contacto:");
-		lblCorreoContacto.setBounds(10, 160, 150, 20);
-		contentPane.add(lblCorreoContacto);
+        JLabel lblCorreoContacto = new JLabel("Correo de Contacto:");
+        lblCorreoContacto.setBounds(10, 160, 150, 20);
+        contentPane.add(lblCorreoContacto);
 
-		txtCorreoContacto = new JTextField();
-		txtCorreoContacto.setBounds(170, 160, 150, 20);
-		contentPane.add(txtCorreoContacto);
-		txtCorreoContacto.setColumns(10);
+        txtCorreoContacto = new JTextField();
+        txtCorreoContacto.setBounds(170, 160, 150, 20);
+        contentPane.add(txtCorreoContacto);
+        txtCorreoContacto.setColumns(10);
 
-		JLabel lblArl = new JLabel("ARL:");
-		lblArl.setBounds(10, 190, 100, 20);
-		contentPane.add(lblArl);
+        JLabel lblArl = new JLabel("ARL:");
+        lblArl.setBounds(10, 190, 100, 20);
+        contentPane.add(lblArl);
 
-		txtArl = new JTextField();
-		txtArl.setBounds(120, 190, 200, 20);
-		contentPane.add(txtArl);
-		txtArl.setColumns(10);
+        txtArl = new JTextField();
+        txtArl.setBounds(120, 190, 200, 20);
+        contentPane.add(txtArl);
+        txtArl.setColumns(10);
 
-		JLabel lblCajaCompensacion = new JLabel("Caja de Compensación:");
-		lblCajaCompensacion.setBounds(10, 220, 150, 20);
-		contentPane.add(lblCajaCompensacion);
+        JLabel lblCajaCompensacion = new JLabel("Caja de Compensación:");
+        lblCajaCompensacion.setBounds(10, 220, 150, 20);
+        contentPane.add(lblCajaCompensacion);
 
-		txtCajaCompensacion = new JTextField();
-		txtCajaCompensacion.setBounds(170, 220, 150, 20);
-		contentPane.add(txtCajaCompensacion);
-		txtCajaCompensacion.setColumns(10);
+        txtCajaCompensacion = new JTextField();
+        txtCajaCompensacion.setBounds(170, 220, 150, 20);
+        contentPane.add(txtCajaCompensacion);
+        txtCajaCompensacion.setColumns(10);
 
-		JLabel lblSalarioMinimo = new JLabel("Salario Mínimo:");
-		lblSalarioMinimo.setBounds(10, 250, 150, 20);
-		contentPane.add(lblSalarioMinimo);
+        JLabel lblSalarioMinimo = new JLabel("Salario Mínimo:");
+        lblSalarioMinimo.setBounds(10, 250, 150, 20);
+        contentPane.add(lblSalarioMinimo);
 
-		txtSalarioMinimo = new JTextField();
-		txtSalarioMinimo.setBounds(170, 250, 150, 20);
-		contentPane.add(txtSalarioMinimo);
-		txtSalarioMinimo.setColumns(10);
+        txtSalarioMinimo = new JTextField();
+        txtSalarioMinimo.setBounds(170, 250, 150, 20);
+        contentPane.add(txtSalarioMinimo);
+        txtSalarioMinimo.setColumns(10);
 
-		JLabel lblAuxilioTransporte = new JLabel("Auxilio de Transporte:");
-		lblAuxilioTransporte.setBounds(10, 280, 150, 20);
-		contentPane.add(lblAuxilioTransporte);
+        JLabel lblAuxilioTransporte = new JLabel("Auxilio de Transporte:");
+        lblAuxilioTransporte.setBounds(10, 280, 150, 20);
+        contentPane.add(lblAuxilioTransporte);
 
-		txtAuxilioTransporte = new JTextField();
-		txtAuxilioTransporte.setBounds(170, 280, 150, 20);
-		contentPane.add(txtAuxilioTransporte);
-		txtAuxilioTransporte.setColumns(10);
-	}
+        txtAuxilioTransporte = new JTextField();
+        txtAuxilioTransporte.setBounds(170, 280, 150, 20);
+        contentPane.add(txtAuxilioTransporte);
+        txtAuxilioTransporte.setColumns(10);
 
+        JButton btnGuardar = new JButton("Guardar");
+        btnGuardar.setBounds(10, 530, 100, 30);
+        contentPane.add(btnGuardar);
+    }
 }
