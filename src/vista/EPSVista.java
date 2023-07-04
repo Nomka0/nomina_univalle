@@ -3,12 +3,16 @@ package vista;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 public class EPSVista extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField txtNombreEPS;
+	private JTextField txtCodigoEPS;
 
 	/**
 	 * Launch the application.
@@ -34,8 +38,26 @@ public class EPSVista extends JFrame {
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setBounds(10, 10, 60, 20);
+		contentPane.add(lblNombre);
+
+		txtNombreEPS = new JTextField();
+		txtNombreEPS.setBounds(80, 10, 150, 20);
+		contentPane.add(txtNombreEPS);
+		txtNombreEPS.setColumns(10);
+
+		JLabel lblCodigo = new JLabel("Código:");
+		lblCodigo.setBounds(10, 40, 60, 20);
+		contentPane.add(lblCodigo);
+
+		txtCodigoEPS = new JTextField();
+		txtCodigoEPS.setBounds(80, 40, 150, 20);
+		contentPane.add(txtCodigoEPS);
+		txtCodigoEPS.setColumns(10);
 	}
 
 }
