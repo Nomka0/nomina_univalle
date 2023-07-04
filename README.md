@@ -55,3 +55,4 @@ Aquí se muestran algunas capturas de pantalla de la aplicación:
 - [Heisuzul](https://github.com/heisuzul)
 - [Daniel8900259](https://github.com/Daniel8900259)
 - [leandroace](https://github.com/leandroace)
+- [lxsae](https://github.com/lxsae)
