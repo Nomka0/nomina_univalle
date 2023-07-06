@@ -37,6 +37,10 @@ public class Main {
 		
 		
 		//test deducciones
+		EmpleadoControlador empleado_controlador = new EmpleadoControlador();
+		empleado_controlador.leerArchivo();
+		empleado_controlador.datosPersistentes();
+		
 		
 		DeduccionControlador deduccion_controlador = new DeduccionControlador();
 		deduccion_controlador.leerSubArchivos();

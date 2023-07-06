@@ -46,7 +46,7 @@ public class EmpleadoVista extends JFrame {
     private JTextField txtFechaRetiro;
     private JTextField txtTipoTrabajador;
     private JComboBox<String> comboBoxEstamento;
-    private Object[][] dataEmpleados;
+    private Object[][] dataEmpleados = {};
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -271,7 +271,7 @@ public class EmpleadoVista extends JFrame {
         btnEliminarEmpleado.setEnabled(toggle);
     }
 
-    public void addDatosTablaEmpleados(Empleado eps) {
+    public void addDatosTabla(Empleado empleado) {
         // Crear una nueva matriz temporal con una fila adicional
         Object[][] newData = new Object[dataEmpleados.length + 1][];
 
@@ -281,7 +281,7 @@ public class EmpleadoVista extends JFrame {
         }
 
         // Añadir el nuevo elemento a newData
-        newData[newData.length - 1] = getDatosEmpleado(eps);
+        newData[newData.length - 1] = getDatosEmpleado(empleado);
 
         // Asignar newData a dataEmpleados
         dataEmpleados = newData;
