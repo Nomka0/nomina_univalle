@@ -3,6 +3,7 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import dao.EmpleadoDAO;
 import modelo.Empleado;
 import vista.EmpleadoVista;
 
@@ -12,13 +13,14 @@ public class EmpleadoVistaControlador {
 	private EmpleadoControlador empleado;
 	private Empleado empleadoNuevo;
 	private int contadorDatos;
+	private EmpleadoDAO empleadosDAO;
 	
 	
 	public EmpleadoVistaControlador(EmpleadoVista ventana, EmpleadoControlador empleado) {
 		this.ventana = ventana;
 		this.empleado = empleado;
 		contadorDatos = 0;
-		
+		datosPersistentes();
         ventana.setVisible(true);
         ventana.setLocationRelativeTo(null);
         
@@ -67,9 +69,7 @@ public class EmpleadoVistaControlador {
 		empleadoNuevo.setActivo(false);
 		empleadoNuevo.setFechaIngreso(fechaingreso);
 		empleadoNuevo.setFechaRetiro(tiposalario);*/
-		
-		ventana.addDatosTablaEmpleados(empleadoNuevo);
-		
+				
 		System.out.println(ID);
 		empleado.crearEmpleado(ID, nombre, apellido, direccion, eps, fpp, fechaingreso, activo, tipotrabajador, tiposalario, cuenta);
 		
@@ -86,6 +86,13 @@ public class EmpleadoVistaControlador {
             
         }
     }
+	
+	   public void datosPersistentes() {
+		   	empleadosDAO = empleado.getDAO();
+	        for (Empleado empleado : empleadosDAO.obtenerTodos()) {
+	            ventana.addDatosTabla(empleado);
+	        }
+	    }
 	
 	public void listarDatos() {
 		

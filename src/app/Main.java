@@ -40,6 +40,7 @@ public class Main {
 		
 		//test deducciones
 		
+		
 		//DeduccionControlador deduccion_controlador = new DeduccionControlador();
 		//deduccion_controlador.leerSubArchivos();
 		//deduccion_controlador.crearDeduccionesAuto();
@@ -47,8 +48,11 @@ public class Main {
 		
 		EmpleadoControlador empleado = new EmpleadoControlador();
 		EmpleadoVista ventana = new EmpleadoVista();
+		empleado.leerArchivo();
+		//datosPersistentes();
 		
 		EmpleadoVistaControlador controlador = new EmpleadoVistaControlador(ventana,empleado);
+		
 
 	}
 

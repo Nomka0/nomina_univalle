@@ -9,8 +9,12 @@ import java.util.Scanner;
 import modelo.ConceptoDevengo;
 import modelo.Empleado;
 import modelo.TarifaCana;
+//import modelo.Usuario;
+import vista.EmpleadoVista;
 import dao.ConceptoDevengoDAO;
 import dao.EmpleadoDAO;
+//import dao.UsuarioDAOImpl;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -25,10 +29,14 @@ public class EmpleadoControlador {
 	private ConceptoDevengoControlador controlador_devengo;
 	//private Map<Integer, EmpleadoDAO> empleadosDAOs;
 
+	private EmpleadoVista ventana;
+	
 	public EmpleadoControlador() {
 		empleadosDAO = new EmpleadoDAO();
 		//empleadosDAOs = new HashMap<>();
 		lista_trabajadores = "CSVs/Trabajadores.csv";
+		//ventana = new EmpleadoVista();
+		//ventana.setVisible(true);
 	}
 	
 	public EmpleadoDAO getDAO() {
@@ -56,6 +64,12 @@ public class EmpleadoControlador {
 		//un mensaje de error en pantalla de la vista
 		
 	}
+	
+    public void datosPersistentes() {
+        for (Empleado empleado : empleadosDAO.obtenerTodos()) {
+            ventana.addDatosTabla(empleado);
+        }
+    }
 	
 	public void crearEmpleado (int id, String nombre, String apellido, String direccion, int eps, int fpp,
 			String fecha_ingreso, String activo, String tipo_trabajador,
@@ -97,6 +111,8 @@ public class EmpleadoControlador {
 			crearCarpeta(id_empleado);
 		}
 	}
+	
+	
 	 
 	public void crearArchivoCSV() {
 		List<Empleado> dao = empleadosDAO.obtenerTodos();
