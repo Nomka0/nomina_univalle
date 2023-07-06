@@ -32,9 +32,9 @@ public class EmpleadoControlador {
 	private EmpleadoVista ventana;
 	
 	public EmpleadoControlador() {
-		empleadosDAO = new EmpleadoDAO();
-		//empleadosDAOs = new HashMap<>();
+		empleadosDAO = new EmpleadoDAO();		
 		lista_trabajadores = "CSVs/Trabajadores.csv";
+		leerArchivo();
 		//ventana = new EmpleadoVista();
 		//ventana.setVisible(true);
 	}

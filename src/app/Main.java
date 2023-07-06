@@ -48,7 +48,7 @@ public class Main {
 		
 		EmpleadoControlador empleado = new EmpleadoControlador();
 		EmpleadoVista ventana = new EmpleadoVista();
-		empleado.leerArchivo();
+		
 		//datosPersistentes();
 		
 		EmpleadoVistaControlador controlador = new EmpleadoVistaControlador(ventana,empleado);
