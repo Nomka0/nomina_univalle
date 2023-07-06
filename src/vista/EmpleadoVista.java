@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultComboBoxModel;
 
 public class EmpleadoVista extends JFrame {
 
@@ -44,8 +45,10 @@ public class EmpleadoVista extends JFrame {
     private JTextField txtApellidos;
     private JTextField txtFechaIngreso;
     private JTextField txtFechaRetiro;
-    private JTextField txtTipoTrabajador;
     private JComboBox<String> comboBoxEstamento;
+    private JComboBox<String> comboBoxSalario;
+    private JComboBox<String> comboBoxTrabajador;
+    private JComboBox<String> comboBoxActivo;
     private Object[][] dataEmpleados = {};
     private JTextField txtDireccion;
     private JLabel lblNewLabel_1;
@@ -53,9 +56,7 @@ public class EmpleadoVista extends JFrame {
     private JLabel lblNewLabel_2;
     private JTextField txtFPP;
     private JLabel lblNewLabel_3;
-    private JTextField txtEstado;
     private JLabel lblNewLabel_4;
-    private JTextField txtTipoSalario;
     private JLabel lblNewLabel_5;
     private JTextField txtCuenta;
 
@@ -142,11 +143,6 @@ public class EmpleadoVista extends JFrame {
         lblTipoTrabajador.setBounds(276, 62, 120, 20);
         contentPane.add(lblTipoTrabajador);
         
-        txtTipoTrabajador = new JTextField();
-        txtTipoTrabajador.setBounds(276, 82, 114, 20);
-        contentPane.add(txtTipoTrabajador);
-        txtTipoTrabajador.setColumns(10);
-        
 
         // JTable para mostrar la lista de epss
         DefaultTableModel model = new DefaultTableModel();
@@ -213,23 +209,13 @@ public class EmpleadoVista extends JFrame {
         txtFPP.setBounds(20, 130, 114, 20);
         contentPane.add(txtFPP);
         
-        lblNewLabel_3 = new JLabel("Estado:");
+        lblNewLabel_3 = new JLabel("Activo:");
         lblNewLabel_3.setBounds(152, 113, 46, 14);
         contentPane.add(lblNewLabel_3);
-        
-        txtEstado = new JTextField();
-        txtEstado.setColumns(10);
-        txtEstado.setBounds(152, 130, 114, 20);
-        contentPane.add(txtEstado);
         
         lblNewLabel_4 = new JLabel("Tipo Salario:");
         lblNewLabel_4.setBounds(276, 113, 82, 14);
         contentPane.add(lblNewLabel_4);
-        
-        txtTipoSalario = new JTextField();
-        txtTipoSalario.setColumns(10);
-        txtTipoSalario.setBounds(276, 130, 114, 20);
-        contentPane.add(txtTipoSalario);
         
         lblNewLabel_5 = new JLabel("Cuenta de banco :");
         lblNewLabel_5.setBounds(400, 113, 114, 14);
@@ -239,10 +225,40 @@ public class EmpleadoVista extends JFrame {
         txtCuenta.setColumns(10);
         txtCuenta.setBounds(400, 130, 114, 20);
         contentPane.add(txtCuenta);
+        
+        comboBoxSalario = new JComboBox();
+        comboBoxSalario.setModel(new DefaultComboBoxModel(new String[] {"Acumulado", "Fijo"}));
+        comboBoxSalario.setSelectedIndex(0);
+        comboBoxSalario.setBounds(276, 129, 114, 22);
+        contentPane.add(comboBoxSalario);
+        
+        comboBoxTrabajador = new JComboBox();
+        comboBoxTrabajador.setModel(new DefaultComboBoxModel(new String[] {"Socio", "No Socio"}));
+        comboBoxTrabajador.setSelectedIndex(0);
+        comboBoxTrabajador.setBounds(276, 81, 114, 22);
+        contentPane.add(comboBoxTrabajador);
+        
+        comboBoxActivo = new JComboBox();
+        comboBoxActivo.setModel(new DefaultComboBoxModel(new String[] {"Si", "No"}));
+        comboBoxActivo.setSelectedIndex(0);
+        comboBoxActivo.setBounds(152, 129, 114, 22);
+        contentPane.add(comboBoxActivo);
     }
 
     public JTable getTablaEmpleados() {
         return tablaEmpleados;
+    }
+    
+    public JComboBox<String> getComboBoxSalario() {
+        return comboBoxSalario;
+    }
+    
+    public JComboBox<String> getComboBoxTrabajador() {
+        return comboBoxTrabajador;
+    }
+    
+    public JComboBox<String> getComboBoxActivo() {
+        return comboBoxActivo;
     }
 
     public int getCodigo() {
@@ -277,21 +293,11 @@ public class EmpleadoVista extends JFrame {
         return txtFechaRetiro.getText();
     }
 
-    public String getTipoTrabajador() {
-        return txtTipoTrabajador.getText();
-    }
-    
-    public String getTipoSalario() {
-        return txtTipoSalario.getText();
-    }
     
     public int getCuenta() {
         return Integer.parseInt(txtCuenta.getText());
     }
     
-    public String getEstado() {
-        return txtEstado.getText();
-    }
 
     public void setCodigo(int codigo) {
         txtCodigo.setText(String.valueOf(codigo));
@@ -341,22 +347,13 @@ public class EmpleadoVista extends JFrame {
         txtFechaRetiro.setText(fechaRetiro);
     }
 
-    public void setTipoTrabajador(String tipoTrabajador) {
-        txtTipoTrabajador.setText(tipoTrabajador);
-    }
-    
-    public void setTipoSalario(String tipoSalario) {
-        txtTipoSalario.setText(tipoSalario);
-    }
+ 
     
     public void setCuenta(int cuenta) {
         txtCuenta.setText(String.valueOf(cuenta));
     }
     
-    public void setEstado(String estado) {
-        txtEstado.setText(estado);
-    }
-
+  
     public void setCamposVacios() {
         setCodigoVacio();
         setNombres("");
@@ -364,24 +361,20 @@ public class EmpleadoVista extends JFrame {
         setDireccion("");
         setEPSVacio();
         setFPPVacio();
-        setTipoSalario("");
+   
         setFechaIngreso("");
         setFechaRetiro("");
-        setTipoTrabajador("");
+      
         setCuentaVacio();
-        setEstado("");
+      
     }
 
     public void displayErrorMessage(String errorMessage) {
         JOptionPane.showMessageDialog(this, errorMessage);
     }
 
-    public JComboBox<String> getComboBoxEstamento() {
-        return comboBoxEstamento;
-    }
-
     public void setComboBoxEstamento(int index) {
-        comboBoxEstamento.setSelectedIndex(index);
+        comboBoxActivo.setSelectedIndex(index);
     }
 
     public Object[] getDatosEmpleado(Empleado eps) {
@@ -509,6 +502,12 @@ public class EmpleadoVista extends JFrame {
     // Añade el listener para la tabla de epss
     public void addTablaEmpleadosMouseListener(MouseAdapter listener) {
         tablaEmpleados.addMouseListener(listener);
+    }
+    
+    public void addComboBoxListener(ActionListener listenControles) {
+        comboBoxSalario.addActionListener(listenControles);
+        comboBoxTrabajador.addActionListener(listenControles);
+        comboBoxActivo.addActionListener(listenControles);
     }
 }
 

@@ -135,7 +135,7 @@ public class EmpleadoControlador {
 	            	String fechaFormateada = formatoDeseado.format(fecha_ingreso);
 	    			String activo;
 	    			if (empleado.getActivo()) {
-	    				 activo = "Sí";
+	    				 activo = "Si";
 	    			} else activo = "No";
 	    			
 	    			String tipo_trabajador = empleado.getTipoTrabajador();
@@ -186,12 +186,13 @@ public class EmpleadoControlador {
 				Empleado empleado_individual = new Empleado(ID, nombre, apellido, direccion, EPS, FPP, fecha_ingreso,
 						activo, tipo_trabajador, tipo_salario,cuenta_bancaria);
 				empleadosDAO.crear(empleado_individual);
+				System.out.println(activo);
 			}
 			
 			//ESTE BLOQUE SE VA A COMENTAR. SOLAMENTE ES PARA DEBUGGEAR UNA CUESTIÓN DE CARPETAS//
-			Empleado empleado_test = new Empleado(1000, "empleado", "ficticio", "nose jajaj", 69420, 1234, "20230619",
+			/*Empleado empleado_test = new Empleado(1000, "empleado", "ficticio", "nose jajaj", 69420, 1234, "20230619",
 					"Sí", "Socio", "Fijo",235437364);
-			empleadosDAO.crear(empleado_test);
+			empleadosDAO.crear(empleado_test);*/
 			//ESTE BLOQUE SE VA A COMENTAR. SOLAMENTE ES PARA DEBUGGEAR UNA CUESTIÓN DE CARPETAS//
 			
 			// Cerrar el scanner después de terminar de leer el archivo

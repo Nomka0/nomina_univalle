@@ -46,12 +46,12 @@ public class Main {
 		//deduccion_controlador.crearDeduccionesAuto();
 		//deduccion_controlador.crearArchivosCSV();
 		
-		EmpleadoControlador empleado = new EmpleadoControlador();
-		EmpleadoVista ventana = new EmpleadoVista();
+		//EmpleadoControlador empleado = new EmpleadoControlador();
+		//EmpleadoVista ventana = new EmpleadoVista();
 		
 		//datosPersistentes();
 		
-		EmpleadoVistaControlador controlador = new EmpleadoVistaControlador(ventana,empleado);
+		//EmpleadoVistaControlador controlador = new EmpleadoVistaControlador(ventana,empleado);
 		
 
 	}

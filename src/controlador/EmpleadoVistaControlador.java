@@ -14,19 +14,26 @@ public class EmpleadoVistaControlador {
 	private Empleado empleadoNuevo;
 	private int contadorDatos;
 	private EmpleadoDAO empleadosDAO;
+	private String tiposalario;
+	private String tipotrabajador;
+	private String estado;
 	
 	
 	public EmpleadoVistaControlador(EmpleadoVista ventana, EmpleadoControlador empleado) {
 		this.ventana = ventana;
 		this.empleado = empleado;
 		contadorDatos = 0;
+		tiposalario = "Acumulado";
+		tipotrabajador = "Socio";
+		estado = "Si";
+		
 		datosPersistentes();
         ventana.setVisible(true);
         ventana.setLocationRelativeTo(null);
         
         ventana.addBtnGuardarEmpleadoListener(new GuardarListener());
         ventana.addBtnListarEmpleadosListener(new ListarListener());
-        
+        ventana.addComboBoxListener(new ComboBoxListener());
 	}
 	
 	class GuardarListener implements ActionListener {
@@ -48,12 +55,9 @@ public class EmpleadoVistaControlador {
 		int eps = ventana.getEPS();
 		int fpp = ventana.getFPP();
 		String fechaingreso = ventana.getFechaIngreso();
-		String activo = ventana.getEstado();
-		String tipotrabajador = ventana.getTipoTrabajador();
-		String tiposalario = ventana.getTipoSalario();
 		long cuenta = ventana.getCuenta();
 		
-		empleadoNuevo = new Empleado(ID, nombre, apellido, direccion, eps, fpp, fechaingreso, activo, tipotrabajador, tiposalario, cuenta);
+		empleadoNuevo = new Empleado(ID, nombre, apellido, direccion, eps, fpp, fechaingreso,estado, tipotrabajador, tiposalario, cuenta);
 		
 		System.out.print(empleadoNuevo.getId()); 
 		
@@ -71,8 +75,8 @@ public class EmpleadoVistaControlador {
 		empleadoNuevo.setFechaRetiro(tiposalario);*/
 				
 		System.out.println(ID);
-		empleado.crearEmpleado(ID, nombre, apellido, direccion, eps, fpp, fechaingreso, activo, tipotrabajador, tiposalario, cuenta);
-		
+		empleado.crearEmpleado(ID, nombre, apellido, direccion, eps, fpp, fechaingreso,estado, tipotrabajador, tiposalario, cuenta);
+		System.out.print(empleado.getDAO().obtener(empleado.getDAO().obtenerTodos().size()-1).getActivo()); 
 	}
 	
 	class ListarListener implements ActionListener {
@@ -80,7 +84,8 @@ public class EmpleadoVistaControlador {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equalsIgnoreCase("Listar eps")) {
-            	System.out.print(empleadoNuevo.getNombre()); 
+            	System.out.print(estado); 
+            	
 
             }
             
@@ -94,6 +99,15 @@ public class EmpleadoVistaControlador {
 	        }
 	    }
 	
+	   class ComboBoxListener implements ActionListener {
+
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            tiposalario = (String) ventana.getComboBoxSalario().getSelectedItem();
+	            tipotrabajador = (String) ventana.getComboBoxTrabajador().getSelectedItem();
+	            estado = (String) ventana.getComboBoxActivo().getSelectedItem();
+	        }
+	    }
 	public void listarDatos() {
 		
 		

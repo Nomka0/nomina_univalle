@@ -29,11 +29,15 @@ public class Empleado {
 		this.direccion = direccion;
 		this.eps = eps;
 		this.fpp = fpp;
+		//activo = "Si";
 		
-		if(activo == "Sí") {
+		if(activo.equalsIgnoreCase("Si")) {
 			this.activo = true;
 		}
-		else this.activo = false; 
+		else {
+			this.activo = false; 
+		}
+		
 		
 		
         sdf = new SimpleDateFormat("yyyyMMdd");

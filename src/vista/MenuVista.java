@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controlador.CajaCompensacionController;
 import controlador.EmpleadoControlador;
 import controlador.EmpleadoVistaControlador;
 
@@ -72,6 +73,16 @@ public class MenuVista extends JFrame {
 		contentPane.add(btnArl);
 		
 		JButton btnCajaDeCompensacin = new JButton("CAJA DE COMPENSACIÓN");
+		btnCajaDeCompensacin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CajaCompensacionVista vista = new CajaCompensacionVista();
+		        CajaCompensacionController controller = new CajaCompensacionController(vista);
+		        vista.setVisible(true);
+		        dispose();
+				
+			}
+		});
+		
 		btnCajaDeCompensacin.setBounds(82, 173, 122, 49);
 		contentPane.add(btnCajaDeCompensacin);
 		

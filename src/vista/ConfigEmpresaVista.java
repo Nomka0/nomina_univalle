@@ -37,6 +37,7 @@ public class ConfigEmpresaVista extends JFrame {
     }
 
     public ConfigEmpresaVista() {
+    	setTitle("Configuración Empresa");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 600);
         contentPane = new JPanel();
@@ -135,7 +136,7 @@ public class ConfigEmpresaVista extends JFrame {
         txtAuxilioTransporte.setColumns(10);
 
         JButton btnGuardar = new JButton("Guardar");
-        btnGuardar.setBounds(10, 530, 100, 30);
+        btnGuardar.setBounds(10, 520, 100, 30);
         contentPane.add(btnGuardar);
     }
 }
