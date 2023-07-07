@@ -1,0 +1,2 @@
+Nombre	Codigo	Fecha Nacimiento	Fecha Ingreso	Fecha Retiro	Tipo Trabajador	Tipo de Salario	#Cuenta
+ht	582	tFecha Nacimienhr	htr	fg	g	gfg	gg
