@@ -1,48 +1,84 @@
 package dao;
-import java.util.ArrayList;
-import java.util.List;
+
+
 import modelo.EPS;
 
-public class EPSDAO implements DAO<EPS> {
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
-	private List<EPS> eps_list;
-	
-	public EPSDAO() {
-		this.eps_list = new ArrayList<>();
-	}
-	
-	@Override
-	public void crear(EPS eps) {
-		// TODO Auto-generated method stub
-		eps_list.add(eps);
-	}
-	
-	@Override
-	public void crearVarios(List<EPS> eps_list_nuevos) {
-		// TODO Auto-generated method stub
-		eps_list = eps_list_nuevos;
-	}
+public class EPSDAO {
+    private static final String FILE_PATH = "src/backup/eps.txt";
 
-	@Override
-	public EPS obtener(int index) {
-		// TODO Auto-generated method stub
-		return eps_list.get(index);
-	}
+    public static void guardarEPS(EPS eps) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true));
+            writer.write(eps.getNombre() + "," + eps.getCodigo());
+            writer.newLine();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public List<EPS> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return eps_list;
-	}
+    public static List<EPS> listarEPS() {
+        List<EPS> epsList = new ArrayList<>();
 
-	@Override
-	public void actualizar(int index, EPS eps_act) {
-		// TODO Auto-generated method stub
-		eps_list.set(index, eps_act);
-	}
-	
-    @Override
-    public void eliminar(int index) {
-        eps_list.remove(index);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length == 2) {
+                    String nombre = data[0];
+                    String codigo = data[1];
+                    EPS eps = new EPS(nombre, codigo);
+                    epsList.add(eps);
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return epsList;
+    }
+
+    public static void actualizarEPS(EPS eps) {
+        List<EPS> epsList = listarEPS();
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+            for (EPS oldEPS : epsList) {
+                if (oldEPS.getNombre().equals(eps.getNombre()) && oldEPS.getCodigo().equals(eps.getCodigo())) {
+                    writer.write(eps.getNombre() + "," + eps.getCodigo());
+                } else {
+                    writer.write(oldEPS.getNombre() + "," + oldEPS.getCodigo());
+                }
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void eliminarEPS(EPS eps) {
+        List<EPS> epsList = listarEPS();
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+            for (EPS oldEPS : epsList) {
+                if (!(oldEPS.getNombre().equals(eps.getNombre()) && oldEPS.getCodigo().equals(eps.getCodigo()))) {
+                    writer.write(oldEPS.getNombre() + "," + oldEPS.getCodigo());
+                    writer.newLine();
+                }
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
+
+

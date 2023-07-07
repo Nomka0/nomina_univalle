@@ -1,50 +1,78 @@
 package modelo;
 
+import dao.ConceptoDevengoDAO;
+import java.util.List;
+
 public class ConceptoDeduccion extends Entidad {
-    private int codigo;
-    private String nombre;
-    private double porcentajeSalud;
-    private double porcentajeFondoPension;
+    private int ficha;
+    private String fechaCorte;
+    private String tipoDeduccion;
+    private double valorDeduccion;
+    public static final int SMLV = 1160000;
 
-    public ConceptoDeduccion(int codigo, String nombre) {
-        super(codigo, nombre);
+    public ConceptoDeduccion(int ficha, String fechaCorte, String concepto, String tipoDeduccion, double valorDeduccion) {
+    	super(ficha, concepto);
+
+        this.ficha = ficha;
+        this.fechaCorte = fechaCorte;
+        this.tipoDeduccion = tipoDeduccion;
+        this.valorDeduccion = valorDeduccion;
     }
 
-    public ConceptoDeduccion() {
-        super();
+    public int getFicha() {
+        return ficha;
     }
 
-    public double getPorcentajeSalud() {
-        return porcentajeSalud;
+    public void setFicha(int ficha) {
+        this.ficha = ficha;
     }
 
-    public void setPorcentajeSalud(double porcentajeSalud) {
-        this.porcentajeSalud = porcentajeSalud;
+    public String getFechaCorte() {
+        return fechaCorte;
     }
 
-    public double getPorcentajeFondoPension() {
-        return porcentajeFondoPension;
+    public void setFechaCorte(String fechaCorte) {
+        this.fechaCorte = fechaCorte;
     }
 
-    public void setPorcentajeFondoPension(double porcentajeFondoPension) {
-        this.porcentajeFondoPension = porcentajeFondoPension;
+    public String getTipoDeduccion() {
+        return tipoDeduccion;
     }
 
-    public double calcularDeduccionAutomatica(double sumatoriaDevengos) {
-        double porcentajeDeduccion = 0.04; // 4% for both health and pension deductions
-        return sumatoriaDevengos * porcentajeDeduccion;
+    public void setTipoDeduccion(String tipoDeduccion) {
+        this.tipoDeduccion = tipoDeduccion;
+    }
+    
+    
+
+    public double getValorDeduccion() {
+        return valorDeduccion;
     }
 
-    public double calcularDeduccionPorValor(double sumatoriaDevengos, double valorDeduccion) {
-        double salarioMinimoVigente = 1000.0; // Example value for the current minimum wage
-        double deduccion;
+    public void setValorDeduccion(double valorDeduccion) {
+        this.valorDeduccion = valorDeduccion;
+    }
 
-        if (sumatoriaDevengos < salarioMinimoVigente) {
-            deduccion = salarioMinimoVigente; // Deduction based on the minimum wage
+    public void calcularValorAuto(double sumatoriaDevengos) {
+        // Deducción automática de salud y fondo de pensión
+        if (sumatoriaDevengos > SMLV) {
+            double porcentajeDeduccion = 0.04; // 4% para salud y fondo de pensión
+            double valor_auto = sumatoriaDevengos * porcentajeDeduccion;
+            setValorDeduccion(valor_auto);
         } else {
-            deduccion = valorDeduccion; // Deduction based on a specific value
+            // Deducción basada en el salario mínimo vigente
+            double valor_auto = SMLV * 0.04;
+            setValorDeduccion(valor_auto);
         }
+    }
 
-        return deduccion;
+    public double sumatoria(ConceptoDevengoDAO sacarDevengos) {
+        double sumatoriaDevengos = 0;
+        List<ConceptoDevengo> devengosAnalizar = sacarDevengos.obtenerTodos();
+        for (ConceptoDevengo devengoAnalizar : devengosAnalizar) {
+            double devengoSumar = devengoAnalizar.getValorDevengo();
+            sumatoriaDevengos += devengoSumar;
+        }
+        return sumatoriaDevengos;
     }
 }

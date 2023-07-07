@@ -1,38 +1,56 @@
 package controlador;
 
-import java.util.List;
-import modelo.EPS;
+
+
 import dao.EPSDAO;
+import modelo.EPS;
+import vista.EPSVista;
+
+import java.util.List;
 
 public class EPSControlador {
+    private EPSVista vista;
+    
+        
 
-    private EPSDAO epsDAO;
-
-    public EPSControlador() {
-        this.epsDAO = new EPSDAO();
+    public void setVista(EPSVista vista) {
+        this.vista = vista;
     }
 
-    public void crearEPS(EPS eps) {
-        epsDAO.crear(eps);
+    public EPSControlador(EPSVista vista) {
+        this.vista = vista;
+        this.vista.setControlador(this);
     }
 
-    public void crearVariasEPS(List<EPS> epsListNuevos) {
-        epsDAO.crearVarios(epsListNuevos);
+    public void guardarEPS(String nombre, String codigo) {
+        EPS eps = new EPS(nombre, codigo);
+        vista.agregarFila(new Object[]{eps.getNombre(), eps.getCodigo()});
+        EPSDAO.guardarEPS(eps);
     }
 
-    public EPS obtenerEPS(int index) {
-        return epsDAO.obtener(index);
+    public List<EPS> listarEPS() {
+        return EPSDAO.listarEPS();
     }
 
-    public List<EPS> obtenerTodasLasEPS() {
-        return epsDAO.obtenerTodos();
+    public void editarEPS(String nombre, String codigo, int rowIndex) {
+        List<EPS> epsList = listarEPS();
+
+        if (rowIndex >= 0 && rowIndex < epsList.size()) {
+            EPS eps = epsList.get(rowIndex);
+            eps.setNombre(nombre);
+            eps.setCodigo(codigo);
+            EPSDAO.actualizarEPS(eps);
+            vista.actualizarFila(rowIndex, new Object[]{eps.getNombre(), eps.getCodigo()});
+        }
     }
 
-    public void actualizarEPS(int index, EPS epsActualizada) {
-        epsDAO.actualizar(index, epsActualizada);
-    }
+    public void eliminarEPS(int rowIndex) {
+        List<EPS> epsList = listarEPS();
 
-    public void eliminarEPS(int index) {
-        epsDAO.eliminar(index);
+        if (rowIndex >= 0 && rowIndex < epsList.size()) {
+            EPS eps = epsList.get(rowIndex);
+            EPSDAO.eliminarEPS(eps);
+            vista.eliminarFila(rowIndex);
+        }
     }
 }

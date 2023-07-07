@@ -1,16 +1,27 @@
 package modelo;
 
-public class FondoPension extends Entidad{
-	int codigo;
-	String nombre;
-	
-	public FondoPension(int codigo, String nombre) {
-		super(codigo, nombre);
-	}
-	
-	public FondoPension() {
-		super();
-	}
+public class FondoPension {
+    private String nombre;
+    private String codigo;
 
+    public FondoPension(String nombre, String codigo) {
+        this.nombre = nombre;
+        this.codigo = codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
 }
-

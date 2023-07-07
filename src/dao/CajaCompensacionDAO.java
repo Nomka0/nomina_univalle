@@ -1,48 +1,103 @@
+/*
 package dao;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.CajaCompensacion;
 
-public class CajaCompensacionDAO implements DAO<CajaCompensacion> {
+import java.util.ArrayList;
+import java.util.List;
 
-	private List<CajaCompensacion> cajas_comp_list;
-	
-	public CajaCompensacionDAO() {
-		this.cajas_comp_list = new ArrayList<>();
-	}
-	
-	@Override
-	public void crear(CajaCompensacion caja_comp) {
-		// TODO Auto-generated method stub
-		cajas_comp_list.add(caja_comp);
-	}
-	
-	@Override
-	public void crearVarios(List<CajaCompensacion> cajas_comp_list_nuevos) {
-		// TODO Auto-generated method stub
-		cajas_comp_list = cajas_comp_list_nuevos;
-	}
+public class CajaCompensacionDAO {
+    private List<CajaCompensacion> cajas;
 
-	@Override
-	public CajaCompensacion obtener(int index) {
-		// TODO Auto-generated method stub
-		return cajas_comp_list.get(index);
-	}
+    public CajaCompensacionDAO() {
+        cajas = new ArrayList<>();
+    }
 
-	@Override
-	public List<CajaCompensacion> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return cajas_comp_list;
-	}
+    public void agregarCajaCompensacion(CajaCompensacion caja) {
+        cajas.add(caja);
+    }
 
-	@Override
-	public void actualizar(int index, CajaCompensacion caja_comp_act) {
-		// TODO Auto-generated method stub
-		cajas_comp_list.set(index, caja_comp_act);
-	}
-	
-    @Override
-    public void eliminar(int index) {
-        cajas_comp_list.remove(index);
+    public void eliminarCajaCompensacion(CajaCompensacion caja) {
+        cajas.remove(caja);
+    }
+
+    public List<CajaCompensacion> obtenerCajasCompensacion() {
+        return cajas;
+    }
+}
+*/
+package dao;
+
+import modelo.CajaCompensacion;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class CajaCompensacionDAO {
+    private List<CajaCompensacion> cajas;
+
+    public CajaCompensacionDAO() {
+        cajas = new ArrayList<>();
+    }
+
+    public void agregarCaja(CajaCompensacion caja) {
+        cajas.add(caja);
+    }
+
+    public void eliminarCaja(CajaCompensacion caja) {
+        cajas.remove(caja);
+    }
+
+    public List<CajaCompensacion> obtenerCajas() {
+        return cajas;
+    }
+
+    public CajaCompensacion buscarCajaPorCodigo(String codigo) {
+        for (CajaCompensacion caja : cajas) {
+            if (caja.getCodigo().equals(codigo)) {
+                return caja;
+            }
+        }
+        return null; // Si no se encuentra la caja
+    }
+
+    public List<CajaCompensacion> buscarCajasPorFechaIngreso(Date fechaIngreso) {
+        List<CajaCompensacion> cajasEncontradas = new ArrayList<>();
+        for (CajaCompensacion caja : cajas) {
+            if (caja.getFechaIngreso().equals(fechaIngreso)) {
+                cajasEncontradas.add(caja);
+            }
+        }
+        return cajasEncontradas;
+    }
+
+    // Otros métodos de consulta o actualización de la base de datos podrían ir aquí
+
+    // Ejemplo de uso del DAO
+    public static void main(String[] args) {
+        CajaCompensacionDAO dao = new CajaCompensacionDAO();
+
+        // Crear una nueva caja
+        CajaCompensacion caja1 = new CajaCompensacion("001", "Caja 1", new Date(), new Date(), null, "Tipo 1",
+                "Salario 1", "123456789");
+        dao.agregarCaja(caja1);
+
+        // Obtener todas las cajas
+        List<CajaCompensacion> cajas = dao.obtenerCajas();
+        System.out.println("Cajas disponibles:");
+        for (CajaCompensacion caja : cajas) {
+            System.out.println(caja.getNombre());
+        }
+
+        // Buscar una caja por código
+        String codigoBuscado = "001";
+        CajaCompensacion cajaEncontrada = dao.buscarCajaPorCodigo(codigoBuscado);
+        if (cajaEncontrada != null) {
+            System.out.println("Caja encontrada: " + cajaEncontrada.getNombre());
+        } else {
+            System.out.println("Caja no encontrada");
+        }
     }
 }

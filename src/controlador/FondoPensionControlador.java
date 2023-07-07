@@ -1,38 +1,52 @@
 package controlador;
 
-import java.util.List;
-import modelo.FondoPension;
 import dao.FondoPensionDAO;
+import modelo.FondoPension;
+import vista.FondoPensionVista;
+
+import java.util.List;
 
 public class FondoPensionControlador {
+    private FondoPensionVista vista;
 
-    private FondoPensionDAO fondoPensionDAO;
-
-    public FondoPensionControlador() {
-        this.fondoPensionDAO = new FondoPensionDAO();
+    public void setVista(FondoPensionVista vista) {
+        this.vista = vista;
     }
 
-    public void crearFondoPension(FondoPension fondoPension) {
-        fondoPensionDAO.crear(fondoPension);
+    public FondoPensionControlador(FondoPensionVista vista) {
+        this.vista = vista;
+        this.vista.setControlador(this);
     }
 
-    public void crearVariosFondosPension(List<FondoPension> fondosPensionNuevos) {
-        fondoPensionDAO.crearVarios(fondosPensionNuevos);
+    public void guardarFondoPension(String nombre, String codigo) {
+        FondoPension fondoPension = new FondoPension(nombre, codigo);
+        vista.agregarFila(new Object[]{fondoPension.getNombre(), fondoPension.getCodigo()});
+        FondoPensionDAO.guardarFondoPension(fondoPension);
     }
 
-    public FondoPension obtenerFondoPension(int index) {
-        return fondoPensionDAO.obtener(index);
+    public List<FondoPension> listarFondoPension() {
+        return FondoPensionDAO.listarFondoPension();
     }
 
-    public List<FondoPension> obtenerTodosLosFondosPension() {
-        return fondoPensionDAO.obtenerTodos();
+    public void editarFondoPension(String nombre, String codigo, int rowIndex) {
+        List<FondoPension> fondoPensionList = listarFondoPension();
+
+        if (rowIndex >= 0 && rowIndex < fondoPensionList.size()) {
+            FondoPension fondoPension = fondoPensionList.get(rowIndex);
+            fondoPension.setNombre(nombre);
+            fondoPension.setCodigo(codigo);
+            FondoPensionDAO.actualizarFondoPension(fondoPension);
+            vista.actualizarFila(rowIndex, new Object[]{fondoPension.getNombre(), fondoPension.getCodigo()});
+        }
     }
 
-    public void actualizarFondoPension(int index, FondoPension fondoPensionActualizado) {
-        fondoPensionDAO.actualizar(index, fondoPensionActualizado);
-    }
+    public void eliminarFondoPension(int rowIndex) {
+        List<FondoPension> fondoPensionList = listarFondoPension();
 
-    public void eliminarFondoPension(int index) {
-        fondoPensionDAO.eliminar(index);
+        if (rowIndex >= 0 && rowIndex < fondoPensionList.size()) {
+            FondoPension fondoPension = fondoPensionList.get(rowIndex);
+            FondoPensionDAO.eliminarFondoPension(fondoPension);
+            vista.eliminarFila(rowIndex);
+        }
     }
 }

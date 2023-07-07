@@ -1,16 +1,29 @@
 package modelo;
 
-public class ARL extends Entidad{
-	int codigo;
-	String nombre_arl;
-	
-	public ARL(int codigo, String nombre_arl) {
-		super(codigo, nombre_arl);
-	}
-	
-	public ARL() {
-		super();
-	}
 
+public class ARL {
+    private String nombre;
+    private String codigo;
+
+    public ARL(String nombre, String codigo) {
+        this.nombre = nombre;
+        this.codigo = codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
 }
 

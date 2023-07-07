@@ -1,0 +1,60 @@
+Codigo: 01
+Nombre: Juan Pérez
+Apellido: Ramírez
+Fecha de Ingreso: 15/02/2022
+Fecha de Retiro: 30/11/2023
+Dirección: Calle 123, Ciudad Imaginaria
+Codigo: 02
+Nombre: Ana García
+Apellido: López
+Fecha de Ingreso: 10/05/2020
+Fecha de Retiro: 05/09/2023
+Dirección: Avenida Principal, Villa Ficticia
+Codigo: 03
+Nombre: Pedro Sánchez
+Apellido: Rodríguez
+Fecha de Ingreso: 07/12/2021
+Fecha de Retiro: 22/08/2023
+Dirección: Calle del Sol, Pueblo Inventado
+Codigo: 04
+Nombre: Laura Martínez
+Apellido: Fernández
+Fecha de Ingreso: 03/06/2023
+Fecha de Retiro: 01/12/2024
+Dirección: Avenida de los Sueños, Ciudad de la Furia
+Codigo: 000000000000000000006
+Nombre: Sofía Ramírez 
+Apellido: Díaz
+Fecha de Ingreso: 12/03/2021
+Fecha de Retiro: 18/11/2023
+Dirección: Avenida del Sueño, Ciudad Imaginada
+Codigo: 07
+Nombre: Carlos Torres
+Apellido: Silva
+Fecha de Ingreso: 05/11/2023
+Fecha de Retiro: 30/06/2025
+Dirección: Calle de la Ilusión, Pueblo de Ensueños
+Codigo: 08
+Nombre: Valentina Herrera
+Apellido: Guzmán
+Fecha de Ingreso: 25/08/2020
+Fecha de Retiro: 15/05/2023
+Dirección: Avenida de la Esperanza, Ciudad Imaginaria
+Codigo: 09
+Nombre: Alejandro Castro
+Apellido: Vargas
+Fecha de Ingreso: 02/04/2022
+Fecha de Retiro: 28/02/2024
+Dirección: Calle de los Sueños, Villa Ficticia
+Codigo: 10
+Nombre: María López
+Apellido: Mendoza
+Fecha de Ingreso: 19/07/2023
+Fecha de Retiro: 10/03/2026
+Dirección: Avenida de la Fantasía, Pueblo Inventado
+Codigo: 123
+Nombres: asido
+Apellidos: asd
+Fecha de Ingreso: 213
+Fecha de Retiro: 2134
+Direccion: asd

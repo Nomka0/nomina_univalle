@@ -1,48 +1,83 @@
 package dao;
-import java.util.ArrayList;
-import java.util.List;
+
+
+
 import modelo.ARL;
 
-public class ARLDAO implements DAO<ARL> {
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
-	private List<ARL> arl_list;
-	
-	public ARLDAO() {
-		this.arl_list = new ArrayList<>();
-	}
-	
-	@Override
-	public void crear(ARL arl) {
-		// TODO Auto-generated method stub
-		arl_list.add(arl);
-	}
-	
-	@Override
-	public void crearVarios(List<ARL> arl_list_nuevos) {
-		// TODO Auto-generated method stub
-		arl_list = arl_list_nuevos;
-	}
+public class ARLDAO {
+    private static final String FILE_PATH = "src/backup/arl.txt";
 
-	@Override
-	public ARL obtener(int index) {
-		// TODO Auto-generated method stub
-		return arl_list.get(index);
-	}
+    public static void guardarARL(ARL arl) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true));
+            writer.write(arl.getNombre() + "," + arl.getCodigo());
+            writer.newLine();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public List<ARL> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return arl_list;
-	}
+    public static List<ARL> listarARL() {
+        List<ARL> arlList = new ArrayList<>();
 
-	@Override
-	public void actualizar(int index, ARL arl_act) {
-		// TODO Auto-generated method stub
-		arl_list.set(index, arl_act);
-	}
-	
-    @Override
-    public void eliminar(int index) {
-        arl_list.remove(index);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length == 2) {
+                    String nombre = data[0];
+                    String codigo = data[1];
+                    ARL arl = new ARL(nombre, codigo);
+                    arlList.add(arl);
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return arlList;
+    }
+
+    public static void actualizarARL(ARL arl) {
+        List<ARL> arlList = listarARL();
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+            for (ARL oldARL : arlList) {
+                if (oldARL.getNombre().equals(arl.getNombre()) && oldARL.getCodigo().equals(arl.getCodigo())) {
+                    writer.write(arl.getNombre() + "," + arl.getCodigo());
+                } else {
+                    writer.write(oldARL.getNombre() + "," + oldARL.getCodigo());
+                }
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void eliminarARL(ARL arl) {
+        List<ARL> arlList = listarARL();
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+            for (ARL oldARL : arlList) {
+                if (!(oldARL.getNombre().equals(arl.getNombre()) && oldARL.getCodigo().equals(arl.getCodigo()))) {
+                    writer.write(oldARL.getNombre() + "," + oldARL.getCodigo());
+                    writer.newLine();
+                }
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

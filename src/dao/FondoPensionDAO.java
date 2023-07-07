@@ -1,48 +1,81 @@
 package dao;
-import java.util.ArrayList;
-import java.util.List;
+
 import modelo.FondoPension;
 
-public class FondoPensionDAO implements DAO<FondoPension> {
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
-	private List<FondoPension> pensiones;
-	
-	public FondoPensionDAO() {
-		this.pensiones = new ArrayList<>();
-	}
-	
-	@Override
-	public void crear(FondoPension fondo_pension) {
-		// TODO Auto-generated method stub
-		pensiones.add(fondo_pension);
-	}
-	
-	@Override
-	public void crearVarios(List<FondoPension> pensiones_nuevas) {
-		// TODO Auto-generated method stub
-		pensiones = pensiones_nuevas;
-	}
+public class FondoPensionDAO {
+    private static final String FILE_PATH = "src/backup/fondoPension.txt";
 
-	@Override
-	public FondoPension obtener(int index) {
-		// TODO Auto-generated method stub
-		return pensiones.get(index);
-	}
+    public static void guardarFondoPension(FondoPension fondoPension) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true));
+            writer.write(fondoPension.getNombre() + "," + fondoPension.getCodigo());
+            writer.newLine();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public List<FondoPension> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return pensiones;
-	}
+    public static List<FondoPension> listarFondoPension() {
+        List<FondoPension> fondoPensionList = new ArrayList<>();
 
-	@Override
-	public void actualizar(int index, FondoPension pensiones_act) {
-		// TODO Auto-generated method stub
-		pensiones.set(index, pensiones_act);
-	}
-	
-    @Override
-    public void eliminar(int index) {
-        pensiones.remove(index);
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data.length == 2) {
+                    String nombre = data[0];
+                    String codigo = data[1];
+                    FondoPension fondoPension = new FondoPension(nombre, codigo);
+                    fondoPensionList.add(fondoPension);
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return fondoPensionList;
+    }
+
+    public static void actualizarFondoPension(FondoPension fondoPension) {
+        List<FondoPension> fondoPensionList = listarFondoPension();
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+            for (FondoPension oldFondoPension : fondoPensionList) {
+                if (oldFondoPension.getNombre().equals(fondoPension.getNombre()) && oldFondoPension.getCodigo().equals(fondoPension.getCodigo())) {
+                    writer.write(fondoPension.getNombre() + "," + fondoPension.getCodigo());
+                } else {
+                    writer.write(oldFondoPension.getNombre() + "," + oldFondoPension.getCodigo());
+                }
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void eliminarFondoPension(FondoPension fondoPension) {
+        List<FondoPension> fondoPensionList = listarFondoPension();
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+            for (FondoPension oldFondoPension : fondoPensionList) {
+                if (!(oldFondoPension.getNombre().equals(fondoPension.getNombre()) && oldFondoPension.getCodigo().equals(fondoPension.getCodigo()))) {
+                    writer.write(oldFondoPension.getNombre() + "," + oldFondoPension.getCodigo());
+                    writer.newLine();
+                }
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

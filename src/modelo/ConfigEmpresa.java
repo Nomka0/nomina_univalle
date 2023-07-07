@@ -1,127 +1,87 @@
 package modelo;
 
+import java.util.Vector;
+
 public class ConfigEmpresa {
-	ARL arl;
-	CajaCompensacion caja_comp;
+    private String nit;
+    private String nombre;
+    private String telefono;
+    private String direccion;
+    private String representanteLegal;
+    private String correoContacto;
+    private String arl;
+    private String cajaCompensacion;
+    private String salarioMinimo;
+    private String auxilioTransporte;
 
-	int NIT;
-	String nombre;
-	long telefono;
-	String direccion;
-	String rep_legal;
-	String correo;
-	public static final int SMLV = 1160000; //salario minimo legal vigente
-	public static final int AUX_TRANSPORTE = 140600;
-	int codigo_arl;
-	int codigo_compensacion;
-	
-	public ConfigEmpresa(int NIT, String nombre, long telefono, String direccion, String rep_legal, String correo,
-			int codigo_arl, int codigo_compensacion) {
-		arl = new ARL(codigo_arl,"Sura");
-		caja_comp = new CajaCompensacion(codigo_compensacion, "Cafam");
-		
-		this.NIT = NIT;
-		this.nombre = nombre;
-		this.telefono = telefono;
-		this.direccion = direccion;
-		this.rep_legal = rep_legal;
-		this.correo = correo;
-		codigo_arl = arl.getCodigo();
-		codigo_compensacion = caja_comp.getCodigo();
-		}
-	
-	public ConfigEmpresa() {}
+    public ConfigEmpresa(String nit, String nombre, String telefono, String direccion, String representanteLegal,
+                         String correoContacto, String arl, String cajaCompensacion, String salarioMinimo,
+                         String auxilioTransporte) {
+        this.nit = nit;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.representanteLegal = representanteLegal;
+        this.correoContacto = correoContacto;
+        this.arl = arl;
+        this.cajaCompensacion = cajaCompensacion;
+        this.salarioMinimo = salarioMinimo;
+        this.auxilioTransporte = auxilioTransporte;
+    }
 
-	public ARL getArl() {
-		return arl;
-	}
+    public String getNit() {
+        return nit;
+    }
 
-	public void setArl(ARL arl) {
-		this.arl = arl;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public CajaCompensacion getCaja_comp() {
-		return caja_comp;
-	}
+    public String getTelefono() {
+        return telefono;
+    }
 
-	public void setCaja_comp(CajaCompensacion caja_comp) {
-		this.caja_comp = caja_comp;
-	}
+    public String getDireccion() {
+        return direccion;
+    }
 
-	public int getNIT() {
-		return NIT;
-	}
+    public String getRepresentanteLegal() {
+        return representanteLegal;
+    }
 
-	public void setNIT(int nIT) {
-		NIT = nIT;
-	}
+    public String getCorreoContacto() {
+        return correoContacto;
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public String getArl() {
+        return arl;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public String getCajaCompensacion() {
+        return cajaCompensacion;
+    }
 
-	public long getTelefono() {
-		return telefono;
-	}
+    public String getSalarioMinimo() {
+        return salarioMinimo;
+    }
 
-	public void setTelefono(long telefono) {
-		this.telefono = telefono;
-	}
+    public String getAuxilioTransporte() {
+        return auxilioTransporte;
+    }
 
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-	public String getRep_legal() {
-		return rep_legal;
-	}
-
-	public void setRep_legal(String rep_legal) {
-		this.rep_legal = rep_legal;
-	}
-
-	public String getCorreo() {
-		return correo;
-	}
-
-	public void setCorreo(String correo) {
-		this.correo = correo;
-	}
-
-	public int getCodigo_arl() {
-		return codigo_arl;
-	}
-
-	public void setCodigo_arl(int codigo_arl) {
-		this.codigo_arl = codigo_arl;
-	}
-
-	public int getCodigo_compensacion() {
-		return codigo_compensacion;
-	}
-
-	public void setCodigo_compensacion(int codigo_compensacion) {
-		this.codigo_compensacion = codigo_compensacion;
-	}
-	
+    public String[] toArray() {
+    String[] array = new String[10];
+    array[0] = this.nit;
+    array[1] = this.nombre;
+    array[2] = this.telefono;
+    array[3] = this.direccion;
+    array[4] = this.representanteLegal;
+    array[5] = this.correoContacto;
+    array[6] = this.arl;
+    array[7] = this.cajaCompensacion;
+    array[8] = this.salarioMinimo;
+    array[9] = this.auxilioTransporte;
+    return array;
 }
-/*
-NIT
-• Razón social o Nombre
-• Teléfono
-• Dirección
-• Representante Legal
-• Correo de Contacto
-• ARL (Código)
-• Caja de Compensación (Código)
-• Salario Mínimo Legal Vigente
-• Auxilio de Transporte
-*/
+
+}

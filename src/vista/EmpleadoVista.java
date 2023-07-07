@@ -1,10 +1,14 @@
 package vista;
+import modelo.Empleado;
 
 import modelo.Empleado;
+import controlador.*;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,17 +25,28 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class EmpleadoVista extends JFrame {
 
-    private JPanel contentPane;
-    private JTable tablaEmpleados;
-    private JButton btnGuardarEmpleado;
-    private JButton btnEditarEmpleado;
-    private JButton btnEliminarEmpleado;
-    private JButton btnListarEmpleados;
-    private JButton btnVerDetalles;
-    private JButton btnOpcionesAdicionales;
+    
+
+    public JButton getBtnGuardarEmpleado() {
+        return btnGuardarEmpleado;
+    }
+    
+    public JPanel contentPane;
+    public JTable tablaEmpleados;
+    public JButton btnGuardarEmpleado;
+    public JButton btnEditarEmpleado;
+    public JButton btnEliminarEmpleado;
+    public JButton btnListarEmpleados;
+    public JButton btnVerDetalles;
+    public JButton btnOpcionesAdicionales;
+    public JButton btnVolver;
    
     JLabel lblApellidos;
     JLabel lblFechaIngreso;
@@ -39,14 +54,14 @@ public class EmpleadoVista extends JFrame {
     JLabel lblCodigo;
     JLabel lblNombres;
     
-    private JTextField txtCodigo;
-    private JTextField txtNombres;
-    private JTextField txtApellidos;
-    private JTextField txtFechaIngreso;
-    private JTextField txtFechaRetiro;
-    private JTextField txtTipoTrabajador;
-    private JComboBox<String> comboBoxEstamento;
-    private Object[][] dataEmpleados;
+    public JTextField txtCodigo;
+    public JTextField txtNombres;
+    public JTextField txtApellidos;
+    public JTextField txtFechaIngreso;
+    public JTextField txtFechaRetiro;
+    public JTextField txtTipoTrabajador;
+    public JComboBox<String> comboBoxEstamento;
+    public Object[][] dataEmpleados;
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -61,8 +76,12 @@ public class EmpleadoVista extends JFrame {
         });
     }
 
+
     public EmpleadoVista() {
-        setResizable(false);
+
+
+        
+                setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 900, 660);
         contentPane = new JPanel();
@@ -70,11 +89,11 @@ public class EmpleadoVista extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
         
-        btnEditarEmpleado = new JButton("Editar eps");
+        btnEditarEmpleado = new JButton("Editar");
         btnEditarEmpleado.setBounds(715, 197, 151, 44);
         contentPane.add(btnEditarEmpleado);
         
-        btnEliminarEmpleado = new JButton("Eliminar eps");
+        btnEliminarEmpleado = new JButton("Eliminar");
         btnEliminarEmpleado.setBounds(715, 275, 151, 44);
         contentPane.add(btnEliminarEmpleado);
         
@@ -108,7 +127,7 @@ public class EmpleadoVista extends JFrame {
         contentPane.add(txtApellidos);
         txtApellidos.setColumns(10);
 
-        lblFechaIngreso = new JLabel("Fecha de Ingreso:");
+        lblFechaIngreso = new JLabel("EPS:");
         lblFechaIngreso.setBounds(19, 62, 123, 20);
         contentPane.add(lblFechaIngreso);
 
@@ -117,7 +136,7 @@ public class EmpleadoVista extends JFrame {
         contentPane.add(txtFechaIngreso);
         txtFechaIngreso.setColumns(10);
 
-        lblFechaRetiro = new JLabel("Fecha de Retiro:");
+        lblFechaRetiro = new JLabel("FPP:");
         lblFechaRetiro.setBounds(223, 62, 106, 20);
         contentPane.add(lblFechaRetiro);
 
@@ -126,7 +145,7 @@ public class EmpleadoVista extends JFrame {
         contentPane.add(txtFechaRetiro);
         txtFechaRetiro.setColumns(10);
 
-        JLabel  lblTipoTrabajador= new JLabel("Tipo de trabajador: ");
+        JLabel  lblTipoTrabajador= new JLabel("Direccion: ");
         lblTipoTrabajador.setBounds(429, 62, 120, 20);
         contentPane.add(lblTipoTrabajador);
         
@@ -155,7 +174,7 @@ public class EmpleadoVista extends JFrame {
         btnGuardarEmpleado.setBounds(726, 29, 130, 55);
         contentPane.add(btnGuardarEmpleado);
         
-        btnListarEmpleados = new JButton("Listar epss");
+        btnListarEmpleados = new JButton("Listar");
         btnListarEmpleados.setBounds(715, 348, 151, 44);
         contentPane.add(btnListarEmpleados);
 
@@ -166,209 +185,39 @@ public class EmpleadoVista extends JFrame {
         btnOpcionesAdicionales = new JButton("Opciones adicionales");
         btnOpcionesAdicionales.setBounds(424, 558, 161, 30);
         contentPane.add(btnOpcionesAdicionales);
+
+        btnVolver = new JButton("Volver");
+        btnVolver.setBounds(715, 556, 151, 30);
+        contentPane.add(btnVolver);
+
+ 
+        
+
+
+
     }
 
-    public JTable getTablaEmpleados() {
-        return tablaEmpleados;
-    }
-
-    public int getCodigo() {
-        return Integer.parseInt(txtCodigo.getText());
-    }
-
-    public String getNombres() {
-        return txtNombres.getText();
-    }
-
-    public String getApellidos() {
-        return txtApellidos.getText();
-    }
-
-    public String getFechaIngreso() {
-        return txtFechaIngreso.getText();
-    }
-
-    public String getFechaRetiro() {
-        return txtFechaRetiro.getText();
-    }
-
-    public String getTipoTrabajador() {
-        return txtTipoTrabajador.getText();
-    }
 
     public void setCodigo(int codigo) {
-        txtCodigo.setText(String.valueOf(codigo));
     }
 
-    public void setCodigoVacio() {
-        txtCodigo.setText("");
-    }
-
-    public void setNombres(String nombres) {
-        txtNombres.setText(nombres);
-    }
-
-    public void setApellidos(String apellidos) {
-        txtApellidos.setText(apellidos);
-    }
 
     public void setFechaIngreso(String fechaIngreso) {
-        txtFechaIngreso.setText(fechaIngreso);
     }
+
 
     public void setFechaRetiro(String fechaRetiro) {
-        txtFechaRetiro.setText(fechaRetiro);
     }
 
-    public void setTipoTrabajador(String tipoTrabajador) {
-        txtTipoTrabajador.setText(tipoTrabajador);
+
+    public void setTipoTrabajador(String direccion) {
     }
 
-    public void setCamposVacios() {
-        setCodigoVacio();
-        setNombres("");
-        setApellidos("");
-        setFechaIngreso("");
-        setFechaRetiro("");
-        setTipoTrabajador("");
+
+    public void setNombres(String nombre) {
     }
 
-    public void displayErrorMessage(String errorMessage) {
-        JOptionPane.showMessageDialog(this, errorMessage);
+
+    public void setApellidos(String apellido) {
     }
-
-    public JComboBox<String> getComboBoxEstamento() {
-        return comboBoxEstamento;
     }
-
-    public void setComboBoxEstamento(int index) {
-        comboBoxEstamento.setSelectedIndex(index);
-    }
-
-    public Object[] getDatosEmpleado(Empleado eps) {
-        Object[] elemento = { eps.getId(), eps.getNombre(), eps.getApellido(), eps.getFechaIngreso(), eps.getFechaRetiro(), eps.getTipoTrabajador()};
-        return elemento;
-    }
-
-    public Object[][] getDatosTablaEmpleados() {
-        return dataEmpleados;
-    }
-
-    // Toggle para el botón de editar. Si es true, el botón se habilita; sino, se deshabilita.
-    public void habilitarEditarEmpleado(boolean toggle) {
-        btnEditarEmpleado.setEnabled(toggle);
-    }
-
-    public void deshabilitarGuardarEmpleado() {
-        btnGuardarEmpleado.setEnabled(false);
-    }
-
-    public void habilitarGuardarEmpleado() {
-        btnGuardarEmpleado.setEnabled(true);
-    }
-
-    public void habilitarEliminarEmpleado(boolean toggle) {
-        btnEliminarEmpleado.setEnabled(toggle);
-    }
-
-    public void addDatosTablaEmpleados(Empleado eps) {
-        // Crear una nueva matriz temporal con una fila adicional
-        Object[][] newData = new Object[dataEmpleados.length + 1][];
-
-        // Copiar los elementos existentes de dataEmpleados a newData
-        for (int i = 0; i < dataEmpleados.length; i++) {
-            newData[i] = dataEmpleados[i];
-        }
-
-        // Añadir el nuevo elemento a newData
-        newData[newData.length - 1] = getDatosEmpleado(eps);
-
-        // Asignar newData a dataEmpleados
-        dataEmpleados = newData;
-
-        // Actualizar el modelo de la tabla de epss
-        SwingUtilities.invokeLater(() -> {
-            tablaEmpleados.setModel(getModeloTablaEmpleados());
-        });
-    }
-
-    public void editarElementoTablaEmpleados(int index, Empleado eps) {
-        Object[] nuevosDatos = getDatosEmpleado(eps);
-        dataEmpleados[index] = nuevosDatos;
-
-        // Actualizar el modelo de la tabla de epss
-        SwingUtilities.invokeLater(() -> {
-            tablaEmpleados.setModel(getModeloTablaEmpleados());
-        });
-    }
-
-    public void eliminarFilaEmpleados(int filaEliminar) {
-        // Convertir la matriz en una lista de arreglos
-        List<Object[]> listaMatriz = new ArrayList<>(Arrays.asList(dataEmpleados));
-
-        // Eliminar la fila especificada
-        listaMatriz.remove(filaEliminar);
-
-        // Convertir la lista de arreglos nuevamente en una matriz
-        Object[][] nuevaMatriz = new Object[listaMatriz.size()][];
-        listaMatriz.toArray(nuevaMatriz);
-
-        dataEmpleados = nuevaMatriz;
-
-        // Actualizar el modelo de la tabla de epss
-        SwingUtilities.invokeLater(() -> {
-            tablaEmpleados.setModel(getModeloTablaEmpleados());
-        });
-    }
-
-    /**
-     * Función que define los datos de la tabla y los nombres de cada columna.
-     * Después se necesitará el modelo en sí, para recuperar los datos
-     * correspondientes de cada fila, por eso se creó la función para
-     * obtenerlo.
-     */
-    public DefaultTableModel getModeloTablaEmpleados() {
-        DefaultTableModel modeloTabla = new DefaultTableModel(
-            dataEmpleados,
-            new String[] {
-                "Código", "Nombres", "Apellidos", "Fecha Ingreso", "Fecha Retiro", "Tipo Trabajador", "Estamento"
-            }
-        );
-        return modeloTabla;
-    }
-
-    // Añade el listener para el botón de Guardar Empleado
-    public void addBtnGuardarEmpleadoListener(ActionListener listener) {
-        btnGuardarEmpleado.addActionListener(listener);
-    }
-
-    // Añade el listener para el botón de Editar Empleado
-    public void addBtnEditarEmpleadoListener(ActionListener listener) {
-        btnEditarEmpleado.addActionListener(listener);
-    }
-
-    // Añade el listener para el botón de Listar Empleados
-    public void addBtnListarEmpleadosListener(ActionListener listener) {
-        btnListarEmpleados.addActionListener(listener);
-    }
-
-    // Añade el listener para el botón de Eliminar Empleado
-    public void addBtnEliminarEmpleadoListener(ActionListener listener) {
-        btnEliminarEmpleado.addActionListener(listener);
-    }
-
-    // Añade el listener para el botón de Ver Detalles
-    public void addBtnVerDetallesListener(ActionListener listener) {
-        btnVerDetalles.addActionListener(listener);
-    }
-
-    // Añade el listener para el botón de Opciones Adicionales
-    public void addBtnOpcionesAdicionalesListener(ActionListener listener) {
-        btnOpcionesAdicionales.addActionListener(listener);
-    }
-
-    // Añade el listener para la tabla de epss
-    public void addTablaEmpleadosMouseListener(MouseAdapter listener) {
-        tablaEmpleados.addMouseListener(listener);
-    }
-}
