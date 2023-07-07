@@ -52,3 +52,9 @@ Apellido: Mendoza
 Fecha de Ingreso: 19/07/2023
 Fecha de Retiro: 10/03/2026
 Dirección: Avenida de la Fantasía, Pueblo Inventado
+Codigo: 123
+Nombres: asido
+Apellidos: asd
+Fecha de Ingreso: 213
+Fecha de Retiro: 2134
+Direccion: asd
